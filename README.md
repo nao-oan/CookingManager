@@ -38,4 +38,14 @@
 
 ## 技術スタック
 
-フェーズ0-2（技術選定）で確定する。
+| 領域 | 技術 |
+|---|---|
+| フロントエンド | Next.js（App Router）／ TypeScript ／ Tailwind CSS ／ shadcn/ui |
+| バックエンド | Next.js Server Actions / Route Handlers |
+| データベース | Supabase（PostgreSQL）／ Drizzle ORM ／ RLS |
+| 認証 | Supabase Auth |
+| ホスティング | Vercel |
+| CI | GitHub Actions |
+| テスト | Vitest（単体）／ Playwright（E2E） |
+
+選定理由と却下した構成は[要件定義書「4. 技術要件」](docs/spec/cooking-manager-requirements.md#4-技術要件)を参照。
