@@ -1,3 +1,4 @@
+import Link from "next/link";
 /**
  * L-1 ランディング `/`
  *
@@ -35,18 +36,18 @@ export default function LandingPage() {
       </ul>
 
       <div className="flex flex-col gap-3">
-        <button
-          type="button"
-          className="min-h-[52px] rounded-lg bg-green font-heading font-bold text-cream"
+        <Link
+          href="/signup"
+          className="flex min-h-[52px] items-center justify-center rounded-lg bg-green font-heading font-bold text-cream"
         >
           はじめる
-        </button>
-        <button
-          type="button"
-          className="min-h-[52px] rounded-lg border-2 border-green font-heading font-bold text-green"
+        </Link>
+        <Link
+          href="/login"
+          className="flex min-h-[52px] items-center justify-center rounded-lg border-2 border-green font-heading font-bold text-green"
         >
           ログイン
-        </button>
+        </Link>
       </div>
 
       <p className="text-xs text-ink-weak">
