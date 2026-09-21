@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>L-1 ランディング | CookingManager</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .l-1-appbar { align-items: center; padding-bottom: 10px; }
+  .l-1-login { color: var(--green-dark); text-decoration: none; border: 1.5px solid var(--green); border-radius: var(--r-pill); padding: 8px 18px; font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; font-size: 13px; }
+  .l-1-content { gap: 14px; padding-bottom: 18px; }
+  .l-1-hero { display: grid; grid-template-columns: 1.25fr .75fr; align-items: center; background: linear-gradient(135deg, var(--cream), var(--mint)); border-radius: var(--r-lg); padding: 18px 16px; }
+  .l-1-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 29px; line-height: 1.35; font-weight: 700; color: var(--green-dark); letter-spacing: -.04em; }
+  .l-1-hero .thumb { width: 112px; height: 126px; font-size: 66px; background: transparent; }
+  .l-1-cta { gap: 8px; }
+  .l-1-features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .l-1-feature { min-height: 156px; padding: 12px 8px; text-align: center; align-items: center; justify-content: flex-start; }
+  .l-1-feature:nth-child(1) { background: #FDF2EF; }
+  .l-1-feature:nth-child(2) { background: var(--warn-bg); }
+  .l-1-feature:nth-child(3) { background: var(--mint); }
+  .l-1-feature .thumb { width: 54px; height: 54px; background: rgba(255,255,255,.78); }
+  .l-1-feature-title { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; font-size: 14px; color: var(--green-dark); }
+  .l-1-feature-copy { font-size: 10px; line-height: 1.55; color: var(--ink-mid); }
+  .l-1-steps { padding: 14px 12px; }
+  .l-1-steps-title { justify-content: center; margin-bottom: 10px; }
+  .l-1-step-row { display: grid; grid-template-columns: 1fr 16px 1fr 16px 1fr; align-items: center; gap: 3px; text-align: center; }
+  .l-1-step { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; }
+  .l-1-step .thumb { width: 56px; height: 48px; font-size: 25px; }
+  .l-1-number { width: 22px; height: 22px; display: grid; place-items: center; border-radius: var(--r-pill); background: var(--green-tint); color: var(--green-dark); font-size: 11px; }
+  .l-1-arrow { color: var(--green-soft); font-size: 18px; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <header class="appbar l-1-appbar">
+    <div class="appbar__brand">
+      <svg class="appbar__logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14a4 4 0 0 1-1-7.9A3.5 3.5 0 0 1 12 4a3.5 3.5 0 0 1 7 2.1A4 4 0 0 1 18 14z"/><path d="M6 14v4a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4"/></svg>
+      <div class="appbar__name">CookingManager</div>
+    </div>
+    <a class="l-1-login" href="a-1.html">ログイン</a>
+  </header>
+
+  <main class="content l-1-content">
+    <section class="l-1-hero">
+      <div class="stack">
+        <h1 class="l-1-title">冷蔵庫の残りから、<br>今日の献立を。</h1>
+        <p class="page-lead">毎日の料理を、もっとかんたんに。</p>
+      </div>
+      <div class="thumb" aria-label="食材が入った冷蔵庫">🧊🥬</div>
+    </section>
+
+    <div class="stack l-1-cta">
+      <a class="btn" href="a-2.html">はじめる <span>›</span></a>
+      <a class="btn btn--outline" href="a-1.html">ログイン</a>
+    </div>
+
+    <section class="l-1-features" aria-label="主な機能">
+      <article class="card stack l-1-feature">
+        <div class="thumb">📖</div>
+        <h2 class="l-1-feature-title">レシピ登録</h2>
+        <p class="l-1-feature-copy">お気に入りの<br>レシピを保存。</p>
+      </article>
+      <article class="card stack l-1-feature">
+        <div class="thumb">🍽️</div>
+        <h2 class="l-1-feature-title">食事記録</h2>
+        <p class="l-1-feature-copy">食べたものを<br>かんたんに記録。</p>
+      </article>
+      <article class="card stack l-1-feature">
+        <div class="thumb">🧺</div>
+        <h2 class="l-1-feature-title">在庫からレシピ提案</h2>
+        <p class="l-1-feature-copy">冷蔵庫の食材から<br>ぴったりの献立を。</p>
+      </article>
+    </section>
+
+    <section class="card l-1-steps">
+      <h2 class="section-title l-1-steps-title">かんたん3ステップ</h2>
+      <div class="l-1-step-row">
+        <div class="l-1-step"><span class="l-1-number">1</span><div class="thumb">📝</div><span>レシピを登録</span></div>
+        <span class="l-1-arrow">›</span>
+        <div class="l-1-step"><span class="l-1-number">2</span><div class="thumb">🧊</div><span>冷蔵庫を登録</span></div>
+        <span class="l-1-arrow">›</span>
+        <div class="l-1-step"><span class="l-1-number">3</span><div class="thumb">🍲</div><span>提案を受け取る</span></div>
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>

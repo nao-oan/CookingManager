@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>A-1 ログイン | CookingManager</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .a-1-content { align-items: center; gap: 14px; padding-top: 14px; padding-bottom: 22px; }
+  .a-1-visual { width: 100%; display: flex; justify-content: center; padding: 10px 0 0; }
+  .a-1-visual .thumb { width: 190px; height: 150px; font-size: 82px; background: radial-gradient(circle, var(--warn-bg), transparent 70%); }
+  .a-1-heading { text-align: center; }
+  .a-1-heading .page-title { justify-content: center; font-size: 34px; color: var(--green-dark); }
+  .a-1-form { width: 100%; border-radius: var(--r-lg); padding: 20px; gap: 16px; box-shadow: 0 6px 22px rgba(31,51,35,.08); }
+  .a-1-password { justify-content: space-between; }
+  .a-1-eye { color: var(--ink-mid); font-size: 20px; }
+  .a-1-register { width: 100%; align-items: center; gap: 8px; padding-top: 4px; }
+  .a-1-register-label { font-size: 13px; }
+  .a-1-register .btn { max-width: 260px; }
+  .a-1-forgot { color: var(--ink-mid); font-size: 12px; text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="phone">
+  <header class="appbar">
+    <div class="appbar__brand">
+      <svg class="appbar__logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14a4 4 0 0 1-1-7.9A3.5 3.5 0 0 1 12 4a3.5 3.5 0 0 1 7 2.1A4 4 0 0 1 18 14z"/><path d="M6 14v4a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4"/></svg>
+      <div><div class="appbar__name">CookingManager</div><div class="appbar__tagline">冷蔵庫から、家族のしあわせを</div></div>
+    </div>
+  </header>
+
+  <main class="content a-1-content">
+    <div class="a-1-visual"><div class="thumb" aria-label="野菜の煮込み鍋">🍲</div></div>
+    <section class="stack a-1-heading">
+      <h1 class="page-title">ログイン</h1>
+      <p class="page-lead">おかえりなさい。今日もおいしい一日を。</p>
+    </section>
+
+    <form class="card stack a-1-form">
+      <label class="field">
+        <span class="field__label">メールアドレス</span>
+        <span class="input input--placeholder">name@example.com</span>
+      </label>
+      <label class="field">
+        <span class="field__label">パスワード</span>
+        <span class="input a-1-password"><span>••••••••</span><span class="a-1-eye" aria-hidden="true">◉</span></span>
+      </label>
+      <button class="btn" type="button">ログイン</button>
+    </form>
+
+    <div class="stack a-1-register">
+      <p class="a-1-register-label">はじめての方はこちら</p>
+      <a class="btn btn--outline" href="a-2.html">新規登録</a>
+    </div>
+    <a class="a-1-forgot" href="#">パスワードを忘れた方</a>
+  </main>
+</div>
+</body>
+</html>

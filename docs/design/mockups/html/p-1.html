@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>P-1 在庫一覧 | CookingManager</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.p1-content{gap:12px}.p1-heading{margin-top:8px}.p1-list{gap:8px}.p1-item{padding:10px;display:grid;grid-template-columns:86px 1fr 18px;gap:10px;align-items:center}.p1-item .thumb{width:86px;height:94px;font-size:40px}.p1-info{display:flex;flex-direction:column;gap:7px}.p1-name{font-family:'Zen Maru Gothic',sans-serif;font-weight:700;font-size:18px}.p1-line{display:flex;align-items:center;justify-content:space-between;gap:6px}.p1-qty{font-size:15px}.p1-expired{background:#F4F4F1}.p1-note{font-size:10px}.p1-chevron{font-size:25px;color:var(--ink)}.p1-gear{font-size:25px;color:var(--green)}
+</style>
+</head>
+<body>
+<div class="phone has-tabbar">
+  <header class="appbar">
+    <div class="appbar__brand"><div class="appbar__logo">♨</div><div><div class="appbar__name">CookingManager</div><div class="appbar__tagline">冷蔵庫から、家族のしあわせを</div></div></div>
+    <div class="p1-gear">⚙</div>
+  </header>
+  <main class="content p1-content">
+    <div class="p1-heading">
+      <h1 class="page-title"><span class="page-title__icon">▣</span>冷蔵庫</h1>
+      <p class="page-lead">賞味期限の近い順に表示しています</p>
+    </div>
+    <section class="stack p1-list">
+      <article class="card p1-item">
+        <div class="thumb">🍗</div><div class="p1-info"><div class="p1-name">鶏もも肉</div><div class="p1-line"><span class="p1-qty">300 g</span><span class="badge badge--danger">◷ 今日まで</span></div><div class="stepper"><span class="stepper__btn">−</span><span class="stepper__value">300</span><span class="stepper__btn">＋</span><span class="stepper__unit">g</span></div></div><span class="p1-chevron">›</span>
+      </article>
+      <article class="card p1-item">
+        <div class="thumb">🥬</div><div class="p1-info"><div class="p1-name">ほうれん草</div><div class="p1-line"><span class="p1-qty">1 袋</span><span class="badge badge--warn">◷ あと2日</span></div><div class="stepper"><span class="stepper__btn">−</span><span class="stepper__value">1</span><span class="stepper__btn">＋</span><span class="stepper__unit">袋</span></div></div><span class="p1-chevron">›</span>
+      </article>
+      <article class="card p1-item">
+        <div class="thumb">🍄</div><div class="p1-info"><div class="p1-name">しめじ</div><div class="p1-line"><span class="p1-qty">2 パック</span><span class="badge">◷ あと4日</span></div><div class="stepper"><span class="stepper__btn">−</span><span class="stepper__value">2</span><span class="stepper__btn">＋</span><span class="stepper__unit">パック</span></div></div><span class="p1-chevron">›</span>
+      </article>
+      <article class="card p1-item p1-expired">
+        <div class="thumb">🥛</div><div class="p1-info"><div class="p1-name">牛乳</div><div class="p1-line"><span class="p1-qty">500 ml</span><span class="badge badge--danger">◷ 期限切れ</span></div><div class="stepper"><span class="stepper__btn">−</span><span class="stepper__value">500</span><span class="stepper__btn">＋</span><span class="stepper__unit">ml</span></div><p class="note p1-note">ⓘ 期限切れの食材はレシピの提案から除外されます。</p></div><span class="p1-chevron">›</span>
+      </article>
+    </section>
+  </main>
+  <div class="fab">＋</div>
+  <nav class="tabbar">
+    <div class="tab"><span class="tab__icon">💡</span>提案</div><div class="tab"><span class="tab__icon">⌕</span>レシピ</div><div class="tab tab--active"><span class="tab__icon">▣</span>冷蔵庫</div><div class="tab"><span class="tab__icon">▤</span>記録</div>
+  </nav>
+</div>
+</body>
+</html>

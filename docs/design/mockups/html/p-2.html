@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=390, initial-scale=1"><title>P-2 在庫追加 | CookingManager</title><link rel="stylesheet" href="styles.css">
+<style>
+.p2-content{gap:10px;padding-top:10px}.p2-card{padding:12px}.p2-cardhead{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}.p2-cardicon{font-size:28px;color:var(--green);width:34px}.p2-title{font-family:'Zen Maru Gothic',sans-serif;font-size:19px;font-weight:700}.p2-search{font-size:16px;justify-content:space-between}.p2-results{border:1px solid var(--line);border-radius:var(--r-sm);overflow:hidden;margin-top:6px}.p2-result{display:flex;align-items:center;gap:10px;padding:7px 10px;font-weight:700}.p2-result:first-child{background:var(--mint)}.p2-create{border-top:1px solid var(--line);padding:10px;font-size:12px;color:var(--green);display:flex;justify-content:space-between}.p2-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.p2-date{display:grid;grid-template-columns:1fr auto;gap:8px}.p2-date .btn{min-height:48px}.p2-save{margin-top:0}.p2-gear{font-size:24px;color:var(--green);text-align:center}
+</style></head><body>
+<div class="phone has-tabbar">
+  <header class="subbar"><div class="subbar__back">‹</div><div class="subbar__title">在庫を追加</div><div class="p2-gear">⚙</div><div class="subbar__sub" style="grid-column:1;text-align:left;margin-left:30px;margin-top:-23px">冷蔵庫</div></header>
+  <main class="content p2-content">
+    <section class="card p2-card">
+      <div class="p2-cardhead"><div class="p2-cardicon">🛒</div><div><div class="p2-title">食材</div><p class="page-lead">追加する食材を検索して選びましょう。</p></div></div>
+      <div class="input input--search p2-search"><span>⌕　ほうれん</span><span>×</span></div>
+      <div class="p2-results"><div class="p2-result"><div class="thumb thumb--sm">🥬</div>ほうれん草</div><div class="p2-result"><div class="thumb thumb--sm">🥬</div>サラダほうれん草</div><div class="p2-create"><span>⊕　該当する食材がない場合は新しく作成</span><span>›</span></div></div>
+    </section>
+    <section class="card p2-card"><div class="p2-cardhead"><div class="p2-cardicon">⚖</div><div><div class="p2-title">数量</div><p class="page-lead">追加する数量を入力しましょう。</p></div></div><div class="p2-grid"><div class="input">1</div><div class="input input--select"><span>袋</span><span>⌄</span></div></div></section>
+    <section class="card p2-card"><div class="p2-cardhead"><div class="p2-cardicon">▣</div><div><div class="p2-title">賞味期限（任意）</div><p class="page-lead">賞味期限を設定すると、管理がしやすくなります。</p></div></div><div class="p2-date"><div class="input">▣　2026年9月24日</div><button class="btn btn--ghost btn--sm">設定しない</button></div></section>
+    <button class="btn p2-save">♨✓　在庫に追加</button>
+  </main>
+  <nav class="tabbar"><div class="tab"><span class="tab__icon">💡</span>提案</div><div class="tab"><span class="tab__icon">⌕</span>レシピ</div><div class="tab tab--active"><span class="tab__icon">▣</span>冷蔵庫</div><div class="tab"><span class="tab__icon">▤</span>記録</div></nav>
+</div></body></html>

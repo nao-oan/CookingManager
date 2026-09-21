@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>R-4 レシピ編集 | CookingManager</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.r-4-content { gap: 10px; }
+.r-4-name { display: grid; grid-template-columns: 120px 1fr; gap: 12px; align-items: center; }
+.r-4-name .thumb { height: 104px; }
+.r-4-section { padding: 12px; }
+.r-4-ingredient { display: grid; grid-template-columns: 44px 1fr 54px 66px 40px 22px; gap: 7px; align-items: center; }
+.r-4-ingredient .thumb { width: 44px; height: 44px; font-size: 22px; }
+.r-4-ingredient .input { min-height: 40px; padding: 0 8px; }
+.r-4-ingredient__name { font-weight: 700; font-size: 13px; }
+.r-4-add { min-height: 42px; border-radius: var(--r-sm); }
+.r-4-step { display: grid; grid-template-columns: 22px 30px 1fr 22px; gap: 8px; align-items: center; }
+.r-4-step__num { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 999px; background: var(--green); color: white; font-weight: 700; }
+.r-4-step .input { min-height: 66px; font-size: 13px; line-height: 1.5; }
+.r-4-delete { color: var(--danger); text-align: center; font-weight: 700; font-size: 13px; }
+.r-4-sheet { bottom: var(--tabbar-h); padding-top: 12px; padding-bottom: 18px; }
+.r-4-sheet .btn { min-height: 46px; }
+</style>
+</head>
+<body>
+<div class="phone has-tabbar">
+  <header class="subbar">
+    <svg class="subbar__back" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    <div class="subbar__title">レシピを編集</div><span></span>
+  </header>
+  <main class="content r-4-content">
+    <section class="card r-4-name">
+      <div class="thumb thumb--lg">🍲</div>
+      <div class="field"><label class="field__label">レシピ名</label><div class="input">鶏肉ときのこのバターしょうゆ炒め</div></div>
+    </section>
+
+    <section class="card stack r-4-section">
+      <div class="section-head"><h2 class="page-title">🧺 材料</h2><span class="page-lead">使う食材と分量を設定しましょう。</span></div>
+      <div class="r-4-ingredient"><div class="thumb">🍗</div><span class="r-4-ingredient__name">鶏もも肉</span><div class="input">200</div><div class="input input--select"><span>g</span><span>⌄</span></div><div class="input">⌕</div><span>🗑</span></div>
+      <div class="r-4-ingredient"><div class="thumb">🍄</div><span class="r-4-ingredient__name">しめじ</span><div class="input">1</div><div class="input input--select"><span>袋</span><span>⌄</span></div><div class="input">⌕</div><span>🗑</span></div>
+      <button class="btn btn--outline r-4-add">＋ 材料を追加</button>
+    </section>
+
+    <section class="card stack r-4-section">
+      <div class="section-head"><h2 class="page-title">👨‍🍳 作り方</h2><span class="page-lead">手順を順番に書きましょう。</span></div>
+      <div class="r-4-step"><span>☰</span><span class="r-4-step__num">1</span><div class="input">鶏もも肉は一口大に切り、しめじは<br>石づきを取り、ほぐす。</div><span>🗑</span></div>
+      <button class="btn btn--outline r-4-add">＋ 手順を追加</button>
+    </section>
+
+    <section class="card stack r-4-section">
+      <div class="section-head"><h2 class="page-title">▣ メモ</h2><span class="page-lead">作るときのコツや補足を書きましょう。</span></div>
+      <div class="input">バターの香りでごはんがすすむ、我が家の定番です。</div>
+    </section>
+    <button class="btn">変更を保存</button>
+    <p class="r-4-delete">このレシピを削除</p>
+  </main>
+
+  <section class="sheet r-4-sheet">
+    <div class="sheet__handle"></div>
+    <h2 class="sheet__title">レシピを削除しますか？</h2>
+    <p class="sheet__text">この操作は取り消せません。</p>
+    <div class="sheet__actions"><button class="btn btn--ghost">キャンセル</button><button class="btn btn--solid-danger">削除する</button></div>
+  </section>
+
+  <nav class="tabbar">
+    <div class="tab"><svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.3.3.5.7.5 1.1h6c0-.4.2-.8.5-1.1A6 6 0 0 0 12 3z"/></svg>提案</div>
+    <div class="tab tab--active"><svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>レシピ</div>
+    <div class="tab"><svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M5 10h14M8.5 6.5v1.5M8.5 13v2"/></svg>冷蔵庫</div>
+    <div class="tab"><svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4.5" y="3.5" width="15" height="17" rx="2.5"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/></svg>記録</div>
+  </nav>
+</div>
+</body>
+</html>

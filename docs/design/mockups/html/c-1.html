@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>C-1 設定 | CookingManager</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  .c-1-appbar { align-items: center; }
+  .c-1-title { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; font-size: 23px; color: var(--green-dark); padding-right: 8px; }
+  .c-1-content { gap: 16px; padding-top: 8px; }
+  .c-1-account { padding: 14px; background: var(--mint); }
+  .c-1-account .thumb { width: 72px; height: 72px; border-radius: var(--r-pill); font-size: 38px; background: var(--green-tint); }
+  .c-1-account-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 19px; font-weight: 700; color: var(--green-dark); }
+  .c-1-email { font-size: 15px; }
+  .c-1-menu { min-height: 76px; padding: 14px 16px; text-decoration: none; color: inherit; }
+  .c-1-menu .thumb { width: 50px; height: 50px; font-size: 27px; background: var(--mint); }
+  .c-1-menu-title { font-family: 'Zen Maru Gothic', sans-serif; font-size: 17px; font-weight: 700; }
+  .c-1-chevron { color: var(--green-dark); font-size: 28px; }
+  .c-1-logout { min-height: 50px; }
+  .c-1-illustration { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 10px; color: var(--green-dark); font-family: 'Zen Maru Gothic', sans-serif; font-size: 13px; line-height: 1.5; text-align: center; }
+  .c-1-illustration .thumb { width: 130px; height: 76px; font-size: 42px; background: transparent; }
+</style>
+</head>
+<body>
+<div class="phone has-tabbar">
+  <header class="appbar c-1-appbar">
+    <div class="appbar__brand">
+      <svg class="appbar__logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14a4 4 0 0 1-1-7.9A3.5 3.5 0 0 1 12 4a3.5 3.5 0 0 1 7 2.1A4 4 0 0 1 18 14z"/><path d="M6 14v4a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4"/></svg>
+      <div><div class="appbar__name">CookingManager</div><div class="appbar__tagline">冷蔵庫から、家族のしあわせを</div></div>
+    </div>
+    <h1 class="c-1-title">設定</h1>
+  </header>
+
+  <main class="content c-1-content">
+    <section class="card card--mint row c-1-account">
+      <div class="thumb" aria-label="ユーザー">👩🏻‍🍳</div>
+      <div class="stack grow">
+        <h2 class="c-1-account-title">アカウント</h2>
+        <p class="c-1-email">user@example.com</p>
+        <span class="badge">●&nbsp; ログイン中</span>
+      </div>
+    </section>
+
+    <section class="stack">
+      <h2 class="page-title">管理</h2>
+      <a class="card row c-1-menu" href="#">
+        <div class="thumb">🧺</div>
+        <div class="grow">
+          <div class="c-1-menu-title">食材一覧</div>
+          <p class="page-lead">食材・単位・常備食材を管理</p>
+        </div>
+        <span class="c-1-chevron">›</span>
+      </a>
+    </section>
+
+    <button class="btn btn--danger c-1-logout">↪&nbsp; ログアウト</button>
+    <div class="c-1-illustration"><span>おいしい<br>毎日を<br>つくろう！</span><div class="thumb">🌿🍅🥄</div></div>
+  </main>
+
+  <nav class="tabbar">
+    <div class="tab">
+      <svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.3.3.5.7.5 1.1h6c0-.4.2-.8.5-1.1A6 6 0 0 0 12 3z"/></svg>
+      提案
+    </div>
+    <div class="tab">
+      <svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      レシピ
+    </div>
+    <div class="tab">
+      <svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M5 10h14"/><path d="M8.5 6.5v1.5"/><path d="M8.5 13v2"/></svg>
+      冷蔵庫
+    </div>
+    <div class="tab">
+      <svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="3.5" width="15" height="17" rx="2.5"/><path d="M8.5 8.5h7"/><path d="M8.5 12.5h7"/><path d="M8.5 16.5h4"/></svg>
+      記録
+    </div>
+  </nav>
+</div>
+</body>
+</html>

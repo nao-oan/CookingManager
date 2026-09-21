@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=390, initial-scale=1"><title>C-2 食材一覧 | CookingManager</title><link rel="stylesheet" href="styles.css">
+<style>
+.c2-content{gap:12px;padding-top:8px}.c2-lead{text-align:center}.c2-search{min-height:52px;font-size:16px}.c2-filter{display:flex;align-items:center;justify-content:space-between}.c2-count{font-size:16px}.c2-list{gap:7px}.c2-item{display:grid;grid-template-columns:82px 1fr auto 14px;align-items:center;gap:8px;padding:9px 12px}.c2-item .thumb{width:82px;height:70px;font-size:36px}.c2-name{font-family:'Zen Maru Gothic',sans-serif;font-size:18px;font-weight:700}.c2-unit{font-size:13px;color:var(--ink-mid);margin-top:5px}.c2-unit b{color:var(--ink);margin-left:12px}.c2-chevron{font-size:23px}.c2-gear{font-size:25px;color:var(--green);text-align:center}.c2-note{margin-top:0}
+</style></head><body>
+<div class="phone has-tabbar">
+  <header class="subbar"><div class="subbar__back">‹</div><div class="subbar__title">食材一覧</div><div class="c2-gear">⚙</div><div class="subbar__sub" style="grid-column:1;text-align:left;margin-left:30px;margin-top:-23px">設定</div></header>
+  <main class="content c2-content">
+    <p class="page-lead c2-lead">食材マスタを検索・編集できます</p>
+    <div class="input input--search input--placeholder c2-search">⌕　食材名で検索</div>
+    <div class="c2-filter"><span class="c2-count">全12件</span><div class="chips"><span class="chip chip--active">すべて</span><span class="chip">常備食材</span></div></div>
+    <section class="stack c2-list">
+      <article class="card c2-item"><div class="thumb">🧂</div><div><div class="c2-name">塩</div><div class="c2-unit">標準単位 <b>g</b></div></div><span class="badge">🍃 常備食材</span><span class="c2-chevron">›</span></article>
+      <article class="card c2-item"><div class="thumb">🫙</div><div><div class="c2-name">しょうゆ</div><div class="c2-unit">標準単位 <b>ml</b></div></div><span class="badge">🍃 常備食材</span><span class="c2-chevron">›</span></article>
+      <article class="card c2-item"><div class="thumb">🍗</div><div><div class="c2-name">鶏もも肉</div><div class="c2-unit">標準単位 <b>g</b></div></div><span class="badge badge--neutral">通常食材</span><span class="c2-chevron">›</span></article>
+      <article class="card c2-item"><div class="thumb">🥬</div><div><div class="c2-name">ほうれん草</div><div class="c2-unit">標準単位 <b>袋</b></div></div><span class="badge badge--neutral">通常食材</span><span class="c2-chevron">›</span></article>
+      <article class="card c2-item"><div class="thumb">🍄</div><div><div class="c2-name">しめじ</div><div class="c2-unit">標準単位 <b>パック</b></div></div><span class="badge badge--neutral">通常食材</span><span class="c2-chevron">›</span></article>
+      <article class="card c2-item"><div class="thumb">🥚</div><div><div class="c2-name">卵</div><div class="c2-unit">標準単位 <b>個</b></div></div><span class="badge badge--neutral">通常食材</span><span class="c2-chevron">›</span></article>
+    </section>
+    <p class="note c2-note">ⓘ　常備食材はレシピ提案の不足判定から除外されます</p>
+  </main>
+  <nav class="tabbar"><div class="tab"><span class="tab__icon">⌂</span>提案</div><div class="tab"><span class="tab__icon">⌕</span>レシピ</div><div class="tab"><span class="tab__icon">▣</span>冷蔵庫</div><div class="tab"><span class="tab__icon">▤</span>記録</div></nav>
+</div></body></html>

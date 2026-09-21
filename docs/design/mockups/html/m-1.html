@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>M-1 記録カレンダー | CookingManager</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.m1-greeting { padding-left: 200px; margin-top: -6px; }
+.m1-month { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; gap: 12px; }
+.m1-month__arrow { width: 40px; height: 40px; border-radius: 50%; background: var(--mint); color: var(--green); display: grid; place-items: center; font-size: 28px; }
+.m1-month__label { text-align: center; font-family: 'Zen Maru Gothic',sans-serif; font-size: 23px; font-weight: 700; }
+.m1-calendar { padding: 14px 12px 10px; }
+.m1-week,.m1-days { display: grid; grid-template-columns: repeat(7,1fr); text-align: center; }
+.m1-week { font-size: 13px; margin-bottom: 8px; }
+.m1-week span:nth-child(6) { color: #2760b2; }.m1-week span:nth-child(7) { color: var(--danger); }
+.m1-days { row-gap: 8px; }
+.m1-day { min-height: 43px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; font-size: 14px; gap: 3px; }
+.m1-day--selected { width: 40px; height: 40px; min-height: 40px; justify-content: center; border-radius: 50%; background: var(--green); color: white; font-weight: 700; justify-self: center; }
+.m1-dots { height: 6px; display: flex; gap: 3px; }.m1-dot { width: 6px; height: 6px; border-radius: 50%; background: #91c58d; }.m1-dot--lunch { background: #f5c64c; }.m1-dot--dinner { background: #ee9b94; }
+.m1-legend { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-top:8px; font-size:9px; color:var(--ink-mid); }.m1-legend span { display:flex; align-items:center; gap:4px; }
+.m1-summary { padding: 12px; }.m1-summary__head { display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; }
+.m1-meal { display:grid; grid-template-columns:90px 1fr 20px; align-items:center; min-height:46px; border-top:1px dashed var(--line); font-size:13px; }.m1-meal:first-of-type { border-top:0; }
+.m1-meal__slot { height:100%; display:flex; align-items:center; gap:7px; padding:0 10px; font-weight:700; }.m1-meal__slot--breakfast { background:var(--danger-bg); color:#c44838; }.m1-meal__slot--lunch { background:var(--warn-bg); color:#a77914; }.m1-meal__slot--dinner { background:var(--mint); color:var(--green-dark); }
+.m1-tip { margin-top:8px; padding:10px; background:var(--mint); border-radius:var(--r-sm); display:flex; align-items:center; justify-content:space-between; font-size:12px; }.m1-tip .thumb { width:82px; height:54px; }
+</style>
+</head>
+<body>
+<div class="phone has-tabbar">
+  <header class="appbar">
+    <div class="appbar__brand"><span class="appbar__logo" style="font-size:27px">👨‍🍳</span><div><div class="appbar__name">CookingManager</div><div class="appbar__tagline">冷蔵庫から、家族のしあわせを</div></div></div>
+    <div class="appbar__actions"><div class="avatar">●</div></div>
+  </header>
+  <main class="content">
+    <div class="m1-greeting"><div class="section-title">こんばんは 🌙</div><div class="page-lead">今日もおつかれさまです！</div></div>
+    <section class="stack">
+      <div><h1 class="page-title">📅 食事の記録</h1><p class="page-lead">毎日の食事を記録して、健康な生活をつくりましょう。</p></div>
+      <div class="m1-month"><div class="m1-month__arrow">‹</div><div class="m1-month__label">2026年9月</div><div class="m1-month__arrow">›</div></div>
+      <div class="card m1-calendar">
+        <div class="m1-week"><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span><span>日</span></div>
+        <div class="m1-days">
+          <div></div><div class="m1-day">1<div class="m1-dots"><i class="m1-dot"></i><i class="m1-dot m1-dot--lunch"></i></div></div><div class="m1-day">2<div class="m1-dots"><i class="m1-dot m1-dot--dinner"></i></div></div><div class="m1-day">3<div class="m1-dots"><i class="m1-dot"></i><i class="m1-dot m1-dot--lunch"></i><i class="m1-dot m1-dot--dinner"></i></div></div><div class="m1-day">4<div class="m1-dots"><i class="m1-dot"></i></div></div><div class="m1-day">5<div class="m1-dots"><i class="m1-dot m1-dot--lunch"></i></div></div><div class="m1-day">6</div>
+          <div class="m1-day">7<div class="m1-dots"><i class="m1-dot"></i></div></div><div class="m1-day">8<div class="m1-dots"><i class="m1-dot m1-dot--dinner"></i><i class="m1-dot m1-dot--lunch"></i></div></div><div class="m1-day">9<div class="m1-dots"><i class="m1-dot"></i></div></div><div class="m1-day">10<div class="m1-dots"><i class="m1-dot"></i><i class="m1-dot m1-dot--dinner"></i></div></div><div class="m1-day">11<div class="m1-dots"><i class="m1-dot m1-dot--lunch"></i></div></div><div class="m1-day">12<div class="m1-dots"><i class="m1-dot"></i><i class="m1-dot m1-dot--dinner"></i></div></div><div class="m1-day">13<div class="m1-dots"><i class="m1-dot m1-dot--dinner"></i></div></div>
+          <div class="m1-day">14<div class="m1-dots"><i class="m1-dot"></i><i class="m1-dot m1-dot--lunch"></i></div></div><div class="m1-day">15<div class="m1-dots"><i class="m1-dot"></i></div></div><div class="m1-day">16</div><div class="m1-day">17<div class="m1-dots"><i class="m1-dot m1-dot--lunch"></i><i class="m1-dot m1-dot--dinner"></i></div></div><div class="m1-day">18<div class="m1-dots"><i class="m1-dot"></i></div></div><div class="m1-day">19<div class="m1-dots"><i class="m1-dot m1-dot--lunch"></i></div></div><div class="m1-day">20<div class="m1-dots"><i class="m1-dot"></i><i class="m1-dot m1-dot--dinner"></i></div></div>
+          <div class="m1-day m1-day--selected">21<div class="m1-dots"><i class="m1-dot"></i><i class="m1-dot m1-dot--lunch"></i></div></div><div class="m1-day">22</div><div class="m1-day">23<div class="m1-dots"><i class="m1-dot m1-dot--dinner"></i></div></div><div class="m1-day">24<div class="m1-dots"><i class="m1-dot"></i><i class="m1-dot m1-dot--lunch"></i></div></div><div class="m1-day">25</div><div class="m1-day">26<div class="m1-dots"><i class="m1-dot"></i></div></div><div class="m1-day">27<div class="m1-dots"><i class="m1-dot m1-dot--dinner"></i></div></div>
+          <div class="m1-day">28<div class="m1-dots"><i class="m1-dot m1-dot--lunch"></i></div></div><div class="m1-day">29<div class="m1-dots"><i class="m1-dot"></i></div></div><div class="m1-day">30<div class="m1-dots"><i class="m1-dot m1-dot--dinner"></i></div></div>
+        </div>
+        <div class="m1-legend"><span><i class="m1-dot"></i>朝食の記録あり</span><span><i class="m1-dot m1-dot--lunch"></i>昼食の記録あり</span><span><i class="m1-dot m1-dot--dinner"></i>夕食の記録あり</span></div>
+      </div>
+      <div class="card m1-summary">
+        <div class="m1-summary__head"><h2 class="page-title" style="font-size:22px">9月21日（月）</h2><span class="badge">✎ この日の記録を編集</span></div>
+        <div class="m1-meal"><div class="m1-meal__slot m1-meal__slot--breakfast">☀ 朝食</div><div>トースト・ヨーグルト</div><b>›</b></div>
+        <div class="m1-meal"><div class="m1-meal__slot m1-meal__slot--lunch">☀ 昼食</div><div>鶏肉ときのこの炒めもの</div><b>›</b></div>
+        <div class="m1-meal"><div class="m1-meal__slot m1-meal__slot--dinner">☾ 夕食</div><div style="color:var(--ink-weak)">未記録</div><b class="badge badge--solid">＋</b></div>
+        <div class="m1-tip"><span>🌿　夕食も記録して、<br>　　1日の食事をそろえましょう！</span><div class="thumb">🍞🥗</div></div>
+      </div>
+    </section>
+  </main>
+  <nav class="tabbar">
+    <div class="tab"><span class="tab__icon">⌂</span>提案</div><div class="tab"><span class="tab__icon">⌕</span>レシピ</div><div class="tab"><span class="tab__icon">▣</span>冷蔵庫</div><div class="tab tab--active"><span class="tab__icon">▦</span>記録</div>
+  </nav>
+</div>
+</body>
+</html>

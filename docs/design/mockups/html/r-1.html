@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>R-1 レシピ一覧 | CookingManager</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+.r-1-content { gap: 12px; }
+.r-1-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.r-1-heading .page-title { font-size: 25px; }
+.r-1-heading__lead { max-width: 125px; font-size: 12px; line-height: 1.6; }
+.r-1-search { min-height: 50px; font-size: 14px; }
+.r-1-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.r-1-card { padding: 8px; gap: 7px; }
+.r-1-card .thumb { height: 108px; }
+.r-1-card__title { min-height: 42px; font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; font-size: 14px; line-height: 1.45; }
+.r-1-card .meta { gap: 8px; font-size: 11px; }
+.r-1-card .tags { gap: 4px; }
+.r-1-card .tag { padding: 3px 7px; font-size: 9px; }
+</style>
+</head>
+<body>
+<div class="phone has-tabbar">
+  <header class="appbar">
+    <div class="appbar__brand">
+      <svg class="appbar__logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 14a4 4 0 0 1-1-7.9A3.5 3.5 0 0 1 12 4a3.5 3.5 0 0 1 7 2.1A4 4 0 0 1 18 14z"/><path d="M6 14v4a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4"/></svg>
+      <div><div class="appbar__name">CookingManager</div><div class="appbar__tagline">冷蔵庫から、家族のしあわせを</div></div>
+    </div>
+    <div class="appbar__actions">
+      <div class="avatar">●</div>
+    </div>
+  </header>
+
+  <main class="content r-1-content">
+    <div class="r-1-heading">
+      <h1 class="page-title">⌕ レシピを探す</h1>
+      <p class="r-1-heading__lead">今日のごはんが<br>きっと見つかります！</p>
+    </div>
+    <div class="input input--search input--placeholder r-1-search"><span class="input__icon">⌕</span>料理名で検索</div>
+    <section class="r-1-grid">
+      <article class="card stack r-1-card">
+        <div class="thumb thumb--lg">🍲</div>
+        <h2 class="r-1-card__title">鶏肉ときのこの<br>バターしょうゆ炒め</h2>
+        <div class="meta"><span>🍴 食材 4/4</span></div>
+        <div class="tags"><span class="tag tag--pink">鶏もも肉</span><span class="tag">しめじ</span><span class="tag tag--yellow">ほうれん草</span></div>
+      </article>
+      <article class="card stack r-1-card">
+        <div class="thumb thumb--lg">🥘</div>
+        <h2 class="r-1-card__title">ほうれん草としめじの<br>ふわとろ卵とじ</h2>
+        <div class="meta"><span>🍴 食材 3/4</span></div>
+        <div class="tags"><span class="tag tag--yellow">ほうれん草</span><span class="tag">しめじ</span><span class="tag tag--pink">卵</span></div>
+      </article>
+      <article class="card stack r-1-card">
+        <div class="thumb thumb--lg">🐟</div>
+        <h2 class="r-1-card__title">鮭の塩焼き</h2>
+        <div class="meta"><span>🍴 食材 2/3</span></div>
+        <div class="tags"><span class="tag tag--pink">鮭</span><span class="tag">大根</span><span class="tag tag--yellow">レモン</span></div>
+      </article>
+      <article class="card stack r-1-card">
+        <div class="thumb thumb--lg">🥔</div>
+        <h2 class="r-1-card__title">肉じゃが</h2>
+        <div class="meta"><span>🍴 食材 5/5</span></div>
+        <div class="tags"><span class="tag tag--pink">じゃがいも</span><span class="tag">牛肉</span><span class="tag tag--yellow">にんじん</span></div>
+      </article>
+      <article class="card stack r-1-card">
+        <div class="thumb thumb--lg">🍅</div>
+        <h2 class="r-1-card__title">トマトとモッツァレラの<br>カプレーゼ</h2>
+        <div class="meta"><span>🍴 食材 3/3</span></div>
+      </article>
+      <article class="card stack r-1-card">
+        <div class="thumb thumb--lg">🍖</div>
+        <h2 class="r-1-card__title">ハンバーグ</h2>
+        <div class="meta"><span>🍴 食材 5/5</span></div>
+      </article>
+    </section>
+  </main>
+  <div class="fab">＋</div>
+  <nav class="tabbar">
+    <div class="tab"><svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.3.3.5.7.5 1.1h6c0-.4.2-.8.5-1.1A6 6 0 0 0 12 3z"/></svg>提案</div>
+    <div class="tab tab--active"><svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>レシピ</div>
+    <div class="tab"><svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M5 10h14M8.5 6.5v1.5M8.5 13v2"/></svg>冷蔵庫</div>
+    <div class="tab"><svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4.5" y="3.5" width="15" height="17" rx="2.5"/><path d="M8.5 8.5h7M8.5 12.5h7M8.5 16.5h4"/></svg>記録</div>
+  </nav>
+</div>
+</body>
+</html>
