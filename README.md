@@ -80,6 +80,26 @@ npm run db:migrate
 
 ディレクトリ構成と命名規則は[ファイル設計書](docs/design/structure.md)を参照。`.env` 系のファイルはコミットしない（NFR-7）。
 
+## デプロイ
+
+本番: https://cooking-manager-two.vercel.app
+
+| 項目 | 内容 |
+|---|---|
+| ホスティング | Vercel。main への push で自動デプロイ |
+| DB | Supabase。開発用とは別プロジェクト |
+| 環境変数 | Vercel の Production に設定する。リポジトリには置かない（NFR-7） |
+
+### 本番DBへのマイグレーション
+
+本番の接続情報を `.env.production.local` に置き、それを読ませて適用する。
+
+```bash
+node -e "require('dotenv').config({path:'.env.production.local'});require('child_process').execSync('npx drizzle-kit migrate',{stdio:'inherit',env:process.env})"
+```
+
+スキーマを変更したときは、**本番へ適用してからデプロイする**。アプリが先に新しいスキーマを前提に動くと、適用までの間エラーになる。
+
 ## 開発状況
 
 フェーズ0（要件定義・設計）を進行中。進捗は GitHub Projects で管理する。
