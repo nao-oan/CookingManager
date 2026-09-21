@@ -11,9 +11,13 @@ out/
 
 # 環境変数
 .env
-.env.local
-.env.*.local
+.env.*
 !.env.example
+
+# エディタの一時ファイル（.env の編集履歴が残りうる）
+*.un~
+*.swp
+*~
 
 # ログ
 *.log

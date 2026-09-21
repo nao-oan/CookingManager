@@ -20,16 +20,50 @@
 | [要件定義書](docs/spec/cooking-manager-requirements.md) | 概要、機能要件、非機能要件、技術要件、プロジェクト計画 |
 | [サイトマップ](docs/design/sitemap.md) | 画面一覧、URL構成、画面遷移図、ナビゲーション構造 |
 | [画面設計書](docs/design/screen-design.md) | デザイントークン、共通コンポーネント、17画面の定義、モックアップ |
+| [システム設計書](docs/design/system.md) | アーキテクチャ、データフロー、API仕様、提案アルゴリズム |
+| [DB設計書](docs/design/database.md) | ER図、テーブル定義、インデックス、RLSポリシー |
+| [ファイル設計書](docs/design/structure.md) | ディレクトリ構成、モジュールの責務、命名規則 |
 
-残りの設計書（システム設計・DB設計・ファイル設計）は `docs/design/` 配下に、フェーズ0の進行に合わせて追加する。
+## 開発環境の構築
 
-## 開発
+### 必要なもの
+
+| 項目 | バージョン |
+|---|---|
+| Node.js | 24 以上 |
+| Supabase のプロジェクト | 開発用。無料枠で足りる |
+
+### 手順
 
 ```bash
+# 1. 依存関係をインストールする
 npm install
-cp .env.example .env.local   # 値は各自で設定する
-npm run dev                  # http://localhost:3000
+
+# 2. 環境変数を用意する
+cp .env.example .env.local
+#    Supabase ダッシュボードの Project Settings から4つの値を転記する
+#    （どの値をどこから取るかは .env.example のコメントに記載）
+
+# 3. マイグレーションを適用する
+npm run db:migrate
+
+# 4. 開発サーバーを起動する
+npm run dev   # http://localhost:3000
 ```
+
+### ローカルDBを使う場合（任意）
+
+Docker があれば、クラウドの代わりにローカルの Supabase を使える。
+
+```bash
+npm run db:start      # 初回は Docker イメージの取得に5〜10分かかる
+                      # 出力された URL と鍵を .env.local に転記する
+npm run db:migrate
+```
+
+管理画面（Supabase Studio）は http://127.0.0.1:54323 で開く。停止は `npm run db:stop`。
+
+### コマンド
 
 | コマンド | 内容 |
 |---|---|
@@ -39,8 +73,12 @@ npm run dev                  # http://localhost:3000
 | `npm run lint` | ESLint を実行する |
 | `npm run typecheck` | 型チェックを実行する |
 | `npm run format` | Prettier で整形する（`docs/` は対象外） |
+| `npm run db:start` / `db:stop` | ローカルDBを起動・停止する |
+| `npm run db:generate` | スキーマ変更からマイグレーションを生成する |
+| `npm run db:migrate` | マイグレーションを適用する |
+| `npm run db:studio` | Drizzle Studio を開く |
 
-ディレクトリ構成と命名規則は[ファイル設計書](docs/design/structure.md)を参照。
+ディレクトリ構成と命名規則は[ファイル設計書](docs/design/structure.md)を参照。`.env` 系のファイルはコミットしない（NFR-7）。
 
 ## 開発状況
 
