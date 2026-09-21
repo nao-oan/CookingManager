@@ -23,6 +23,25 @@
 
 残りの設計書（システム設計・DB設計・ファイル設計）は `docs/design/` 配下に、フェーズ0の進行に合わせて追加する。
 
+## 開発
+
+```bash
+npm install
+cp .env.example .env.local   # 値は各自で設定する
+npm run dev                  # http://localhost:3000
+```
+
+| コマンド | 内容 |
+|---|---|
+| `npm run dev` | 開発サーバーを起動する |
+| `npm run build` | 本番ビルドを作る |
+| `npm test` | 単体テストを実行する（Vitest） |
+| `npm run lint` | ESLint を実行する |
+| `npm run typecheck` | 型チェックを実行する |
+| `npm run format` | Prettier で整形する（`docs/` は対象外） |
+
+ディレクトリ構成と命名規則は[ファイル設計書](docs/design/structure.md)を参照。
+
 ## 開発状況
 
 フェーズ0（要件定義・設計）を進行中。進捗は GitHub Projects で管理する。

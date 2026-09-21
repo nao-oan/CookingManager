@@ -330,30 +330,39 @@ export const inventoryItems = pgTable('inventory_items', {
 |---|---|
 | `drizzle.config.ts` | スキーマの場所と出力先（`drizzle/`） |
 | `next.config.ts` | Next.js の設定 |
-| `tailwind.config.ts` | [画面設計書3章](screen-design.md#3-デザイントークン)のトークンを `theme.extend` に移植する |
+| `postcss.config.mjs` | Tailwind v4 のプラグイン登録 |
+| `eslint.config.mjs` | Flat Config。層の依存方向を `import/no-restricted-paths` で強制する |
+| `.prettierrc.json` / `.prettierignore` | 整形設定。`docs/` は整形対象から外す（表組みが崩れるため） |
 | `vitest.config.ts` | テスト対象を `src/**/*.test.ts` に限定 |
 | `tsconfig.json` | `@/*` を `src/*` に割り当てる |
 | `.env.example` | キー名のみ記載。値は置かない（NFR-7） |
 
 ### デザイントークンの移植
 
-`styles.css` の CSS 変数を Tailwind の設定へ写す。モックアップと実装で色がずれないよう、値は[画面設計書](screen-design.md#3-デザイントークン)を唯一の出典とする。
+**Tailwind v4 を使うため `tailwind.config.ts` は作らない。** v4 は設定を CSS 側の `@theme` で行う方式に変わっており、設定ファイルは既定で生成されない。トークンは `src/app/globals.css` に書く。
 
-```typescript
-// tailwind.config.ts（抜粋）
-theme: {
-  extend: {
-    colors: {
-      cream: '#FEFDF9',
-      mint:  '#F2F8EE',
-      green: { DEFAULT: '#416643', dark: '#325635', soft: '#5A7E57' },
-      ink:   { DEFAULT: '#1E2B21', mid: '#5C6B5E', weak: '#9AA69B' },
-      danger: { DEFAULT: '#E26354', bg: '#FDF2EF' },
-      warn:   { DEFAULT: '#C9972E', bg: '#FEF9E9' },
-    },
-  },
+モックアップと実装で色がずれないよう、値は[画面設計書3章](screen-design.md#3-デザイントークン)を唯一の出典とする。
+
+```css
+/* src/app/globals.css（抜粋） */
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #fefdf9;
+  --color-mint: #f2f8ee;
+  --color-green: #416643;
+  --color-green-dark: #325635;
+  --color-ink: #1e2b21;
+  --color-ink-mid: #5c6b5e;
+  --color-danger: #e26354;
+  --color-warn: #c9972e;
+
+  --font-sans: var(--font-noto-sans-jp), sans-serif;
+  --font-heading: var(--font-zen-maru-gothic), sans-serif;
 }
 ```
+
+`--color-green` と定義すると `bg-green` `text-green` が使えるようになる。書体は `next/font/google` で読み込み、CSS 変数として渡す。
 
 ---
 
@@ -365,7 +374,7 @@ theme: {
 |---|---|
 | Next.js（App Router） | `src/app/` の階層でルーティング。ルートグループでレイアウトを分ける |
 | TypeScript | 全ファイル。`@/*` のパスエイリアス |
-| Tailwind CSS + shadcn/ui | `components/ui/` に取り込み、改変しない。トークンは `tailwind.config.ts` |
+| Tailwind CSS + shadcn/ui | `components/ui/` に取り込み、改変しない。トークンは v4 の方式に従い `globals.css` の `@theme` |
 | Server Actions / Route Handlers | `actions/` と `app/api/`。使い分けは[システム設計 7.1](system.md#71-方針) |
 | Supabase | `lib/supabase/` にクライアント、`middleware.ts` に認証ガード |
 | Drizzle ORM | `db/schema.ts` を正とし、`drizzle/` にマイグレーションを出力 |
