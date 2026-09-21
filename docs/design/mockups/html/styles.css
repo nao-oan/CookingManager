@@ -1,0 +1,390 @@
+/* =========================================================================
+   CookingManager — 共通スタイル
+   S-1 採用案 docs/design/mockups/s-1/g/gen/g1.png から抽出したトークンで構成する。
+   Figma へは html.to.design プラグインで取り込む前提。
+   色はすべて変数で持ち、各画面は原則このファイルのクラスだけで組む。
+   ========================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap');
+
+:root {
+  /* --- 色（g1.png から抽出） --- */
+  --cream:        #FEFDF9;  /* ページ背景 */
+  --white:        #FFFFFF;  /* カード背景 */
+  --mint:         #F2F8EE;  /* 淡緑のセクション背景 */
+  --green:        #416643;  /* ブランド緑・主ボタン */
+  --green-dark:   #325635;  /* 押下・強調 */
+  --green-soft:   #5A7E57;  /* 余裕ありの状態色 */
+  --green-tint:   #E9F2E4;  /* 緑バッジ背景 */
+  --ink:          #1E2B21;  /* 主テキスト */
+  --ink-mid:      #5C6B5E;  /* 副テキスト */
+  --ink-weak:     #9AA69B;  /* プレースホルダ */
+  --line:         #E4EADF;  /* 罫線 */
+
+  --danger:       #E26354;  /* 期限切迫・削除 */
+  --danger-bg:    #FDF2EF;
+  --warn:         #C9972E;  /* 期限注意 */
+  --warn-bg:      #FEF9E9;
+
+  /* --- 角丸 --- */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  /* --- 余白 --- */
+  --gap-xs: 6px;
+  --gap-sm: 10px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+
+  --tabbar-h: 84px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #DDE3DA;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: var(--ink);
+  display: flex;
+  justify-content: center;
+  padding: 24px 0;
+}
+
+/* --- 端末フレーム：390×844（iPhone 相当）------------------------------- */
+.phone {
+  position: relative;
+  width: 390px;
+  min-height: 844px;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* 下部タブのぶんだけ本文の下に余白を作る */
+.phone.has-tabbar .content { padding-bottom: var(--tabbar-h); }
+
+.content {
+  flex: 1;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+/* --- ヘッダー ---------------------------------------------------------- */
+.appbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 16px 16px 4px;
+}
+.appbar__brand { display: flex; align-items: center; gap: 8px; }
+.appbar__logo {
+  width: 28px; height: 28px;
+  color: var(--green);
+}
+.appbar__name {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.appbar__tagline { font-size: 10px; color: var(--ink-mid); margin-top: 2px; }
+.appbar__actions { display: flex; align-items: center; gap: 10px; }
+.appbar__icon { width: 24px; height: 24px; color: var(--green); }
+.avatar {
+  width: 34px; height: 34px; border-radius: var(--r-pill);
+  background: var(--green); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+
+/* 戻る矢印つきのサブ画面ヘッダー */
+.subbar {
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  padding: 14px 8px 6px;
+}
+.subbar__back { width: 24px; height: 24px; color: var(--ink); justify-self: center; }
+.subbar__title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+  font-size: 19px;
+  text-align: center;
+}
+.subbar__sub { grid-column: 2; text-align: center; font-size: 12px; color: var(--ink-mid); }
+
+/* --- 見出し ------------------------------------------------------------ */
+.page-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.3;
+  display: flex; align-items: center; gap: 8px;
+}
+.page-title__icon { width: 26px; height: 26px; color: var(--green); }
+.page-lead { font-size: 13px; color: var(--ink-mid); line-height: 1.6; }
+
+.section-title {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.section-link { font-size: 12px; color: var(--green); display: flex; align-items: center; gap: 2px; }
+
+/* --- カード ------------------------------------------------------------ */
+.card {
+  background: var(--white);
+  border-radius: var(--r-md);
+  padding: 14px;
+  box-shadow: 0 1px 3px rgba(31, 51, 35, .06);
+}
+.card--mint { background: var(--mint); box-shadow: none; }
+.card--flat { box-shadow: none; border: 1px solid var(--line); }
+.card--muted { background: #F4F4F1; box-shadow: none; }
+
+.stack { display: flex; flex-direction: column; gap: var(--gap-sm); }
+.row { display: flex; align-items: center; gap: var(--gap-sm); }
+.row--between { justify-content: space-between; }
+.grow { flex: 1; min-width: 0; }
+
+/* --- 期限バンド（今日まで／あとN日）------------------------------------ */
+.band {
+  display: flex; align-items: center; gap: 12px;
+  border-radius: var(--r-md);
+  padding: 12px;
+}
+.band--danger { background: var(--danger-bg); }
+.band--warn   { background: var(--warn-bg); }
+.band--ok     { background: var(--green-tint); }
+.band__label { width: 74px; flex-shrink: 0; }
+.band__days {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700; font-size: 17px; line-height: 1.2;
+}
+.band--danger .band__days { color: var(--danger); }
+.band--warn   .band__days { color: var(--warn); }
+.band--ok     .band__days { color: var(--green-soft); }
+.band__note { font-size: 11px; color: var(--ink-mid); line-height: 1.5; margin-top: 2px; }
+
+/* --- 食材・料理のサムネイル（実装時は写真に差し替える）------------------ */
+.thumb {
+  width: 76px; height: 76px; flex-shrink: 0;
+  border-radius: var(--r-sm);
+  background: var(--mint);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 34px;
+}
+.thumb--sm { width: 52px; height: 52px; font-size: 24px; }
+.thumb--lg { width: 100%; height: 132px; font-size: 48px; border-radius: var(--r-md); }
+
+/* --- バッジ・チップ ---------------------------------------------------- */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  border-radius: var(--r-pill);
+  padding: 4px 10px;
+  font-size: 12px; font-weight: 500;
+  background: var(--green-tint); color: var(--green-dark);
+}
+.badge--danger  { background: var(--danger-bg); color: var(--danger); }
+.badge--warn    { background: var(--warn-bg);   color: var(--warn); }
+.badge--neutral { background: #F0F0EC; color: var(--ink-mid); }
+.badge--solid   { background: var(--green); color: var(--white); }
+
+/* 材料タグ（レシピカード内） */
+.tag {
+  display: inline-block;
+  border-radius: var(--r-pill);
+  padding: 4px 10px;
+  font-size: 11px;
+  background: var(--green-tint); color: var(--ink);
+}
+.tag--pink { background: #FBE7E4; }
+.tag--yellow { background: var(--warn-bg); }
+/* 不足している材料は点線枠で示す */
+.tag--missing {
+  background: transparent;
+  border: 1px dashed var(--ink-weak);
+  color: var(--ink-mid);
+}
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+/* 絞り込みチップ */
+.chips { display: flex; gap: 8px; overflow-x: auto; }
+.chip {
+  border-radius: var(--r-pill);
+  padding: 8px 18px;
+  font-size: 13px; font-weight: 500;
+  background: var(--mint); color: var(--ink-mid);
+  white-space: nowrap;
+}
+.chip--active { background: var(--green); color: var(--white); }
+
+/* --- メタ情報（マッチ率・所要時間）------------------------------------- */
+.meta { display: flex; align-items: center; gap: 14px; font-size: 13px; color: var(--ink); }
+.meta__item { display: flex; align-items: center; gap: 5px; }
+.meta__icon { width: 16px; height: 16px; color: var(--green); }
+.meta__num { font-weight: 700; }
+
+/* --- ボタン ------------------------------------------------------------ */
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%;
+  min-height: 52px;
+  border-radius: var(--r-lg);
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 700; font-size: 16px;
+  background: var(--green); color: var(--white);
+  border: none;
+}
+.btn--outline { background: transparent; color: var(--green); border: 1.5px solid var(--green); }
+.btn--ghost   { background: var(--mint); color: var(--green-dark); }
+.btn--danger  { background: transparent; color: var(--danger); border: 1.5px solid var(--danger); }
+.btn--sm { min-height: 40px; font-size: 14px; border-radius: var(--r-pill); width: auto; padding: 0 18px; }
+.btn__note { display: block; font-size: 11px; font-weight: 400; color: var(--ink-mid); text-align: center; margin-top: 4px; }
+
+.fab {
+  position: absolute; right: 18px; bottom: calc(var(--tabbar-h) + 14px);
+  width: 58px; height: 58px; border-radius: var(--r-pill);
+  background: var(--green); color: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 30px; line-height: 1;
+  box-shadow: 0 4px 12px rgba(31, 51, 35, .22);
+}
+
+/* --- フォーム ---------------------------------------------------------- */
+.field { display: flex; flex-direction: column; gap: 6px; }
+.field__label { font-size: 14px; font-weight: 700; }
+.field__hint { font-size: 12px; color: var(--ink-mid); }
+.input {
+  min-height: 48px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: var(--white);
+  padding: 0 14px;
+  font-size: 15px; color: var(--ink);
+  display: flex; align-items: center; gap: 8px;
+}
+.input--placeholder { color: var(--ink-weak); }
+.input--select { justify-content: space-between; }
+.input--search .input__icon { width: 18px; height: 18px; color: var(--ink-weak); }
+
+/* 数量の直接増減 */
+.stepper { display: flex; align-items: center; gap: 8px; }
+.stepper__btn {
+  width: 40px; height: 40px; border-radius: var(--r-sm);
+  background: var(--green-tint); color: var(--green-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; line-height: 1;
+}
+.stepper__value {
+  min-width: 68px; height: 40px;
+  border: 1px solid var(--line); border-radius: var(--r-sm);
+  background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 500;
+}
+.stepper__unit { font-size: 13px; color: var(--ink-mid); }
+
+/* チェックボックス／トグル */
+.checkbox {
+  width: 34px; height: 34px; border-radius: var(--r-sm);
+  border: 2px solid var(--line); background: var(--white);
+  display: flex; align-items: center; justify-content: center;
+  color: transparent; flex-shrink: 0;
+}
+.checkbox--on { background: var(--green); border-color: var(--green); color: var(--white); }
+.checkbox--danger { background: var(--danger); border-color: var(--danger); color: var(--white); }
+
+.toggle {
+  width: 52px; height: 30px; border-radius: var(--r-pill);
+  background: var(--line); position: relative; flex-shrink: 0;
+}
+.toggle::after {
+  content: ''; position: absolute; top: 3px; left: 3px;
+  width: 24px; height: 24px; border-radius: var(--r-pill); background: var(--white);
+}
+.toggle--on { background: var(--green); }
+.toggle--on::after { left: 25px; }
+
+/* セグメント切り替え */
+.segment { display: flex; background: var(--mint); border-radius: var(--r-pill); padding: 4px; }
+.segment__item {
+  flex: 1; text-align: center; padding: 10px 0;
+  font-size: 14px; font-weight: 700; color: var(--ink-mid);
+  border-radius: var(--r-pill);
+}
+.segment__item--active { background: var(--green); color: var(--white); }
+
+/* --- 注記 -------------------------------------------------------------- */
+.note {
+  display: flex; align-items: flex-start; gap: 6px;
+  font-size: 12px; color: var(--ink-mid); line-height: 1.6;
+}
+.note__icon { width: 15px; height: 15px; flex-shrink: 0; margin-top: 2px; color: var(--ink-weak); }
+.note--warn {
+  background: var(--warn-bg); color: var(--warn);
+  border-radius: var(--r-sm); padding: 10px 12px;
+}
+
+/* --- 空状態 ------------------------------------------------------------ */
+.empty {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  padding: 28px 12px;
+  background: var(--mint); border-radius: var(--r-md);
+  text-align: center;
+}
+.empty__text { font-size: 13px; color: var(--ink-mid); }
+
+/* --- 下部タブ（提案／レシピ／冷蔵庫／記録）------------------------------ */
+.tabbar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: var(--tabbar-h);
+  background: var(--cream);
+  border-top: 1px solid var(--line);
+  display: flex;
+  padding-bottom: 12px;
+}
+.tab {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 5px;
+  font-size: 11px; color: var(--ink-mid);
+  position: relative;
+}
+.tab__icon { width: 24px; height: 24px; }
+.tab--active { color: var(--green); font-weight: 700; }
+.tab--active::after {
+  content: ''; position: absolute; bottom: -2px;
+  width: 26px; height: 3px; border-radius: var(--r-pill); background: var(--green);
+}
+
+/* --- モーダル（削除確認など）------------------------------------------- */
+.sheet {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  background: var(--white);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  padding: 20px 16px 28px;
+  box-shadow: 0 -6px 24px rgba(31, 51, 35, .18);
+  display: flex; flex-direction: column; gap: 14px;
+  text-align: center;
+}
+.sheet__handle {
+  width: 42px; height: 4px; border-radius: var(--r-pill);
+  background: var(--line); margin: 0 auto 4px;
+}
+.sheet__title { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; font-size: 18px; }
+.sheet__text { font-size: 13px; color: var(--ink-mid); }
+.sheet__actions { display: flex; gap: 10px; }
+.sheet__actions .btn { flex: 1; }
+.btn--solid-danger { background: var(--danger); color: var(--white); border: none; }

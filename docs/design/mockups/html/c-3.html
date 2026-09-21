@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=390, initial-scale=1"><title>C-3 食材編集 | CookingManager</title><link rel="stylesheet" href="styles.css">
+<style>
+.c3-content{gap:14px}.c3-hero{min-height:160px;background:var(--mint);border-radius:var(--r-md);padding:12px;display:flex;align-items:center;gap:12px}.c3-hero .thumb{width:190px;height:130px;background:transparent;font-size:72px}.c3-hero__name{font-family:'Zen Maru Gothic',sans-serif;font-size:29px;font-weight:700;white-space:nowrap;margin-top:8px}.c3-form{padding:16px;gap:16px}.c3-form .input{min-height:52px;font-size:18px}.c3-toggle-row{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}.c3-toggle-row .field__label{font-size:16px}.c3-meta{padding-top:12px;border-top:1px solid var(--line);font-size:14px;display:flex;gap:28px}.c3-meta span:first-child{color:var(--ink-mid)}.c3-delete-note{text-align:center;margin-top:-8px;color:var(--ink-mid);font-size:11px}
+</style></head><body><div class="phone has-tabbar">
+<header class="subbar"><span class="subbar__back">‹</span><h1 class="subbar__title">食材を編集</h1><div></div></header>
+<main class="content c3-content">
+  <section class="c3-hero"><div class="thumb">🥬</div><div><span class="badge">食材マスタ</span><div class="c3-hero__name">ほうれん草</div></div></section>
+  <section class="card stack c3-form">
+    <div class="field"><label class="field__label">食材名</label><div class="input">ほうれん草</div></div>
+    <div class="field"><label class="field__label">標準単位</label><div class="input input--select"><span>g</span><span>⌄</span></div></div>
+    <div class="c3-toggle-row"><div><div class="field__label">常備食材</div><p class="field__hint" style="margin-top:5px">在庫がなくても、いつもあるものとして扱います</p></div><div class="toggle"></div></div>
+    <div class="note note--warn"><span class="note__icon">●</span><span>常備食材はレシピ提案の不足判定から除外されます</span></div>
+    <div class="c3-meta"><span>登録日</span><span>2026年8月12日</span></div>
+  </section>
+  <button class="btn">▣　変更を保存</button>
+  <button class="btn btn--danger">🗑　この食材を削除</button>
+  <div class="c3-delete-note">削除前に確認します</div>
+</main>
+<nav class="tabbar"><div class="tab"><span class="tab__icon">⌂</span>提案</div><div class="tab"><span class="tab__icon">⌕</span>レシピ</div><div class="tab"><span class="tab__icon">▣</span>冷蔵庫</div><div class="tab"><span class="tab__icon">▱</span>記録</div></nav>
+</div></body></html>

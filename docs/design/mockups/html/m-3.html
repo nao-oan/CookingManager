@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=390, initial-scale=1"><title>M-3 食事記録の追加・編集 | CookingManager</title><link rel="stylesheet" href="styles.css">
+<style>
+.m3-content{gap:12px}.m3-search{min-height:44px;border-color:#ccd2cc;font-size:14px}.m3-selected{background:var(--mint);border-radius:var(--r-md);padding:10px;display:flex;align-items:center;gap:10px;position:relative}.m3-selected .thumb{width:128px;height:88px;font-size:44px}.m3-selected__name{font-weight:700;font-size:15px;line-height:1.35}.m3-remove{position:absolute;right:10px;top:10px;width:28px;height:28px;border-radius:50%;background:var(--line);display:grid;place-items:center;color:var(--ink-mid)}
+.m3-item{padding:8px;display:flex;align-items:center;gap:8px;position:relative}.m3-item .thumb{width:72px;height:66px;font-size:30px}.m3-item__body{flex:1;min-width:0;padding-right:24px}.m3-item__name{font-size:13px;font-weight:700;margin-top:4px}.m3-item .m3-remove{top:8px;right:8px}.m3-item .input{min-height:42px;margin-top:6px}.m3-textarea{min-height:80px;align-items:flex-start;padding-top:12px}.m3-count{text-align:right;color:var(--ink-mid);font-size:11px}.m3-delete{text-align:center;color:var(--danger);font-weight:700;font-size:14px}.m3-delete small{display:block;color:var(--ink-mid);font-weight:400;margin-top:3px}
+</style></head><body><div class="phone has-tabbar">
+<header class="subbar"><span class="subbar__back">‹</span><h1 class="subbar__title">夕食の記録</h1><div></div><div class="subbar__sub">2026年9月21日（月）</div></header>
+<main class="content m3-content">
+  <div class="segment"><div class="segment__item segment__item--active">登録済みレシピ</div><div class="segment__item">自由入力</div></div>
+  <div class="input input--search input--placeholder m3-search"><span class="input__icon">⌕</span>レシピを検索</div>
+  <section class="m3-selected"><div class="thumb">🍲</div><div class="grow"><div class="m3-selected__name">鶏肉ときのこの<br>バターしょうゆ炒め</div><div class="tags" style="margin-top:8px"><span class="tag tag--pink">鶏もも肉</span><span class="tag">しめじ</span><span class="tag tag--yellow">ほうれん草</span></div></div><span class="m3-remove">×</span></section>
+  <h2 class="page-title" style="font-size:23px">🍴 品目</h2>
+  <article class="card m3-item"><div class="thumb">🍲</div><div class="m3-item__body"><span class="badge">レシピ</span><div class="m3-item__name">鶏肉ときのこのバターしょうゆ炒め</div><div class="tags" style="margin-top:5px"><span class="tag tag--pink">鶏もも肉</span><span class="tag">しめじ</span><span class="tag tag--yellow">ほうれん草</span></div></div><span class="m3-remove">×</span></article>
+  <article class="card m3-item"><div class="thumb">🥣</div><div class="m3-item__body"><span class="badge badge--warn">自由入力</span><div class="input">わかめスープ</div></div><span class="m3-remove">×</span></article>
+  <button class="btn btn--outline">＋ 品目を追加</button>
+  <div class="field"><label class="section-title">📄 メモ（任意）</label><div class="input m3-textarea">家族にも好評。次は少し薄味に。</div><div class="m3-count">17/200</div></div>
+  <button class="btn">▣　保存する</button>
+  <div class="m3-delete">🗑　この記録を削除<small>削除前に確認します</small></div>
+</main>
+<nav class="tabbar"><div class="tab"><span class="tab__icon">⌂</span>提案</div><div class="tab"><span class="tab__icon">⌕</span>レシピ</div><div class="tab"><span class="tab__icon">▣</span>冷蔵庫</div><div class="tab tab--active"><span class="tab__icon">▦</span>記録</div></nav>
+</div></body></html>

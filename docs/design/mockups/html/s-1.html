@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=390, initial-scale=1">
+<title>S-1 レシピ提案 | CookingManager</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- =======================================================================
+     S-1 レシピ提案 /suggestions
+     採用案 docs/design/mockups/s-1/g/gen/g1.png の HTML 化。
+     他画面はこのファイルを構造の手本にする。
+     ======================================================================= -->
+<div class="phone has-tabbar">
+
+  <header class="appbar">
+    <div class="appbar__brand">
+      <svg class="appbar__logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 14a4 4 0 0 1-1-7.9A3.5 3.5 0 0 1 12 4a3.5 3.5 0 0 1 7 2.1A4 4 0 0 1 18 14z"/>
+        <path d="M6 14v4a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-4"/>
+      </svg>
+      <div>
+        <div class="appbar__name">CookingManager</div>
+        <div class="appbar__tagline">冷蔵庫から、家族のしあわせを</div>
+      </div>
+    </div>
+    <div class="appbar__actions">
+      <div class="avatar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="8" r="3.5"/><path d="M4.5 20a7.5 7.5 0 0 1 15 0"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <!-- 挨拶 -->
+    <div class="row row--between">
+      <div>
+        <div class="section-title">こんばんは 🌙</div>
+        <div class="page-lead">今日もおつかれさまです！</div>
+      </div>
+    </div>
+
+    <!-- いま使いたい食材（F5-2 期限順・F5-4 期限警告）------------------ -->
+    <section class="stack">
+      <div class="section-head">
+        <div class="page-title">
+          <svg class="page-title__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9h18l-1.8 9.2a2 2 0 0 1-2 1.8H6.8a2 2 0 0 1-2-1.8z"/><path d="M8 9 10 4"/><path d="M16 9 14 4"/>
+          </svg>
+          いま使いたい食材
+        </div>
+        <a class="section-link">冷蔵庫の食材を編集 ›</a>
+      </div>
+      <p class="page-lead">賞味期限が近い食材から、今夜のごはんを考えましょう。</p>
+
+      <div class="band band--danger">
+        <div class="band__label">
+          <div class="band__days">今日まで</div>
+          <div class="band__note">早めに<br>使いましょう！</div>
+        </div>
+        <div class="thumb">🍗</div>
+        <div class="grow">
+          <div class="section-title">鶏もも肉</div>
+          <span class="badge badge--danger">🕐 今日まで</span>
+        </div>
+        <div class="checkbox checkbox--danger">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L19 7"/></svg>
+        </div>
+      </div>
+
+      <div class="band band--warn">
+        <div class="band__label">
+          <div class="band__days">あと2日</div>
+          <div class="band__note">そろそろ<br>使いましょう。</div>
+        </div>
+        <div class="thumb">🥬</div>
+        <div class="grow">
+          <div class="section-title">ほうれん草</div>
+          <span class="badge badge--warn">🕐 あと2日</span>
+        </div>
+        <div class="checkbox checkbox--on">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L19 7"/></svg>
+        </div>
+      </div>
+
+      <div class="band band--ok">
+        <div class="band__label">
+          <div class="band__days">あと4日</div>
+          <div class="band__note">まだ少し<br>余裕があります。</div>
+        </div>
+        <div class="thumb">🍄</div>
+        <div class="grow">
+          <div class="section-title">しめじ</div>
+          <span class="badge">🕐 あと4日</span>
+        </div>
+        <div class="checkbox"></div>
+      </div>
+    </section>
+
+    <!-- おすすめの組み合わせ（F6-1〜F6-3）------------------------------ -->
+    <section class="stack">
+      <div class="section-head">
+        <div class="section-title">
+          <svg class="page-title__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3v8a2 2 0 0 0 4 0V3"/><path d="M8 11v10"/><path d="M17 3c-1.5 2-2 4-2 6s.5 3 2 3v9"/>
+          </svg>
+          おすすめの組み合わせ
+        </div>
+        <span class="page-lead">冷蔵庫の食材からおすすめ！</span>
+      </div>
+
+      <!-- 不足0件 -->
+      <article class="card row" style="align-items: flex-start; gap: 12px;">
+        <div class="thumb">🍲</div>
+        <div class="grow stack">
+          <span class="badge badge--warn">イチオシ</span>
+          <div class="section-title">鶏肉ときのこの<br>バターしょうゆ炒め</div>
+          <p class="page-lead">冷蔵庫の食材で、かんたんに作れる定番おかずです。</p>
+          <div class="meta">
+            <span class="meta__item">
+              <svg class="meta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3v8a2 2 0 0 0 4 0V3"/><path d="M8 11v10"/><path d="M17 3c-1.5 2-2 4-2 6s.5 3 2 3v9"/></svg>
+              食材 <span class="meta__num">4/4</span>
+            </span>
+          </div>
+          <div class="tags">
+            <span class="tag tag--pink">鶏もも肉</span>
+            <span class="tag">しめじ</span>
+            <span class="tag tag--yellow">ほうれん草</span>
+            <span class="tag badge--neutral">バター</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 不足1件：足りない材料は点線枠で示す（F6-3）-->
+      <article class="card row" style="align-items: flex-start; gap: 12px;">
+        <div class="thumb">🥘</div>
+        <div class="grow stack">
+          <div class="section-title">ほうれん草としめじの<br>ふわとろ卵とじ</div>
+          <p class="page-lead">やさしい味わいで、ごはんにもよく合います。</p>
+          <div class="meta">
+            <span class="meta__item">
+              <svg class="meta__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 3v8a2 2 0 0 0 4 0V3"/><path d="M8 11v10"/><path d="M17 3c-1.5 2-2 4-2 6s.5 3 2 3v9"/></svg>
+              食材 <span class="meta__num">3/4</span>
+            </span>
+          </div>
+          <div class="tags">
+            <span class="tag tag--yellow">ほうれん草</span>
+            <span class="tag">しめじ</span>
+            <span class="tag tag--pink">卵</span>
+            <span class="tag tag--missing">鶏もも肉</span>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <button class="btn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 10h16v6a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3z"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+      </svg>
+      この組み合わせで作る ›
+    </button>
+
+  </div>
+
+  <!-- 下部タブ：提案／レシピ／冷蔵庫／記録 -->
+  <nav class="tabbar">
+    <div class="tab tab--active">
+      <svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.3.3.5.7.5 1.1h6c0-.4.2-.8.5-1.1A6 6 0 0 0 12 3z"/>
+      </svg>
+      提案
+    </div>
+    <div class="tab">
+      <svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+      </svg>
+      レシピ
+    </div>
+    <div class="tab">
+      <svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M5 10h14"/><path d="M8.5 6.5v1.5"/><path d="M8.5 13v2"/>
+      </svg>
+      冷蔵庫
+    </div>
+    <div class="tab">
+      <svg class="tab__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4.5" y="3.5" width="15" height="17" rx="2.5"/><path d="M8.5 8.5h7"/><path d="M8.5 12.5h7"/><path d="M8.5 16.5h4"/>
+      </svg>
+      記録
+    </div>
+  </nav>
+
+</div>
+</body>
+</html>
