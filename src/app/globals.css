@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+/*
+ * デザイントークン。
+ * 出典は docs/design/screen-design.md 3章。値を変えるときは設計書を先に直す。
+ * Tailwind v4 は CSS で定義するため tailwind.config.ts は持たない。
+ */
+@theme {
+  /* 色 */
+  --color-cream: #fefdf9;
+  --color-mint: #f2f8ee;
+  --color-green: #416643;
+  --color-green-dark: #325635;
+  --color-green-soft: #5a7e57;
+  --color-green-tint: #e9f2e4;
+  --color-ink: #1e2b21;
+  --color-ink-mid: #5c6b5e;
+  --color-ink-weak: #9aa69b;
+  --color-line: #e4eadf;
+  --color-danger: #e26354;
+  --color-danger-bg: #fdf2ef;
+  --color-warn: #c9972e;
+  --color-warn-bg: #fef9e9;
+
+  /* 書体 */
+  --font-sans: var(--font-noto-sans-jp), sans-serif;
+  --font-heading: var(--font-zen-maru-gothic), sans-serif;
+
+  /* 角丸 */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+
+  /* 下部タブの高さ（NFR-8: 当たり判定44px以上） */
+  --spacing-tabbar: 84px;
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+}

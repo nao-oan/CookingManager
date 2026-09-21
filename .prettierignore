@@ -1,0 +1,7 @@
+.next/
+node_modules/
+drizzle/
+docs/design/mockups/
+package-lock.json
+docs/
+README.md
