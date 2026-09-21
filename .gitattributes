@@ -1,0 +1,10 @@
+# 改行は LF に統一する。
+# Windows の作業ツリーでも LF を保ち、Prettier（既定 endOfLine: lf）と
+# CI（Linux）の判定がローカルと一致するようにする。
+* text=auto eol=lf
+
+# バイナリ
+*.png binary
+*.ico binary
+*.jpg binary
+*.webp binary
