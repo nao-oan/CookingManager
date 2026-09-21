@@ -80,6 +80,15 @@ npm run db:migrate
 
 ディレクトリ構成と命名規則は[ファイル設計書](docs/design/structure.md)を参照。`.env` 系のファイルはコミットしない（NFR-7）。
 
+
+### ブラウザ操作（Playwright MCP）
+
+リポジトリ直下の `.mcp.json` に Playwright MCP サーバーを定義してある。Claude Code から実際のブラウザを操作して画面の確認ができる。
+
+- 初回はセッション開始時にサーバーの利用可否を尋ねられる
+- インストール済みの Chrome を使うため、ブラウザの追加ダウンロードは不要
+- CI で回す E2E テスト（Playwright のテストフレームワーク）とは別物。そちらは #33 で導入する
+
 ## デプロイ
 
 本番: https://cooking-manager-two.vercel.app
