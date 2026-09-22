@@ -33,3 +33,43 @@ export interface IngredientUsage {
   recipes: number;
   inventoryItems: number;
 }
+
+/** レシピ材料（F3-2）。単位は食材の標準単位と異なってよい */
+export interface RecipeIngredient {
+  ingredientId: UUID;
+  quantity: number;
+  unit: Unit;
+}
+
+/** 画面表示用に食材名を添えた材料 */
+export interface RecipeIngredientDetail extends RecipeIngredient {
+  name: string;
+  isStaple: boolean;
+}
+
+/** レシピ（F3-1, F3-2）。材料は1件以上（検証は Zod が担う） */
+export interface Recipe {
+  id: UUID;
+  ownerId: UUID;
+  name: string;
+  ingredients: RecipeIngredientDetail[];
+  /** 表示順に並んだ手順の本文 */
+  steps: string[];
+  note: string | null;
+}
+
+/** R-1 のカードに出す一覧向けの形。材料は名前だけを持つ */
+export interface RecipeSummary {
+  id: UUID;
+  name: string;
+  ingredientCount: number;
+  ingredientNames: string[];
+}
+
+/** レシピの登録・更新で受け取る値。検証は src/validations/recipe.ts が行う */
+export interface RecipeInput {
+  name: string;
+  ingredients: RecipeIngredient[];
+  steps: string[];
+  note: string | null;
+}
