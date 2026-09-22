@@ -34,3 +34,17 @@ export const signUpSchema = z
 
 export type SignInInput = z.infer<typeof signInSchema>;
 export type SignUpInput = z.infer<typeof signUpSchema>;
+
+/** パスワード再設定の依頼（A-3） */
+export const resetRequestSchema = z.object({ email });
+
+/** 新しいパスワードの設定（A-4） */
+export const newPasswordSchema = z
+  .object({
+    password,
+    passwordConfirm: z.string().min(1, "確認用のパスワードを入力してください"),
+  })
+  .refine((v) => v.password === v.passwordConfirm, {
+    message: "パスワードが一致しません",
+    path: ["passwordConfirm"],
+  });

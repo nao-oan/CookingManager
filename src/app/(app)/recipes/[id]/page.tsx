@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { StockBadge } from "@/components/app/stock-badge";
 import { SubBar } from "@/components/app/sub-bar";
+import { recipeThumbnail } from "@/domain/thumbnail/thumbnail";
 import { requireUser } from "@/lib/auth";
 import { currentMealSlot, todayInTokyo } from "@/lib/date";
 import { getRecipeWithStock } from "@/repositories/recipes";
@@ -38,7 +39,13 @@ export default async function RecipePage({ params }: { params: Promise<{ id: str
         }
       />
 
-      <section className="rounded-md bg-mint p-4">
+      <section className="flex items-center gap-3 rounded-md bg-mint p-4">
+        <span
+          aria-hidden
+          className="grid size-16 shrink-0 place-items-center rounded-md bg-white text-3xl"
+        >
+          {recipeThumbnail(recipe.name)}
+        </span>
         <h2 className="font-heading text-2xl leading-snug font-bold">{recipe.name}</h2>
       </section>
 

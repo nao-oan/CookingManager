@@ -32,6 +32,12 @@ export default async function LoginPage({
 
       <LoginForm />
 
+      <div className="text-center">
+        <Link href="/reset-password" className="text-sm text-green-dark underline">
+          パスワードをお忘れですか？
+        </Link>
+      </div>
+
       <div className="flex flex-col items-center gap-2">
         <p className="text-sm text-ink-mid">はじめての方はこちら</p>
         <Link

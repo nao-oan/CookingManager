@@ -1,8 +1,14 @@
 "use server";
 
+import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import { signInSchema, signUpSchema } from "@/validations/auth";
+import {
+  newPasswordSchema,
+  resetRequestSchema,
+  signInSchema,
+  signUpSchema,
+} from "@/validations/auth";
 import { fail, toFieldErrors, type ActionResult } from "@/lib/result";
 
 /**
@@ -83,4 +89,71 @@ export async function signOut(): Promise<void> {
   const supabase = await createClient();
   await supabase.auth.signOut();
   redirect("/");
+}
+
+/**
+ * パスワード再設定メールを送る（A-3）。
+ *
+ * アドレスが登録済みかどうかは結果に出さない。存在の有無が分かると
+ * アカウントの洗い出しに使えるため、常に同じ文面を返す。
+ */
+export async function requestPasswordReset(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  const parsed = resetRequestSchema.safeParse({ email: formData.get("email") });
+
+  if (!parsed.success) {
+    return fail(
+      "VALIDATION_ERROR",
+      "入力内容を確認してください",
+      toFieldErrors(parsed.error.issues),
+    );
+  }
+
+  const origin = (await headers()).get("origin") ?? "";
+  const supabase = await createClient();
+
+  await supabase.auth.resetPasswordForEmail(parsed.data.email, {
+    redirectTo: `${origin}/auth/callback?next=/reset-password/new`,
+  });
+
+  redirect("/reset-password?sent=1");
+}
+
+/**
+ * 新しいパスワードを設定する（A-4）。
+ * メールのリンクで張られた復旧セッションが前提になる。
+ */
+export async function updatePassword(_prev: AuthState, formData: FormData): Promise<AuthState> {
+  const parsed = newPasswordSchema.safeParse({
+    password: formData.get("password"),
+    passwordConfirm: formData.get("passwordConfirm"),
+  });
+
+  if (!parsed.success) {
+    return fail(
+      "VALIDATION_ERROR",
+      "入力内容を確認してください",
+      toFieldErrors(parsed.error.issues),
+    );
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // リンクの有効期限が切れている場合はセッションが無い
+  if (!user) {
+    return fail("UNAUTHENTICATED", "リンクの有効期限が切れています。もう一度やり直してください");
+  }
+
+  const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
+
+  if (error) {
+    return fail("INTERNAL_ERROR", "変更できませんでした。時間をおいて試してください");
+  }
+
+  redirect("/suggestions");
 }

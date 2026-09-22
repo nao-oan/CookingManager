@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { RecipeSuggestion } from "@/domain/suggestion";
+import { recipeThumbnail } from "@/domain/thumbnail/thumbnail";
 import { IngredientTag } from "./ingredient-tag";
 
 /**
@@ -29,7 +30,7 @@ export function SuggestionCard({
         className="grid size-14 shrink-0 place-items-center rounded-sm bg-mint text-2xl"
         aria-hidden
       >
-        🍲
+        {recipeThumbnail(suggestion.recipeName)}
       </span>
 
       <span className="flex flex-1 flex-col gap-1.5">
