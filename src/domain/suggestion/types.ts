@@ -3,7 +3,7 @@
  * 出典: docs/design/system.md 4.2
  */
 import type { Dimension } from "../unit/units";
-import type { DateOnly, Unit, UUID } from "../../types";
+import type { DateOnly, RecipeIngredient, Unit, UUID } from "../../types";
 
 /** 材料ごとの充足状態 */
 export type MatchState =
@@ -43,4 +43,29 @@ export interface StockLot {
   quantity: number;
   unit: Unit;
   expiresAt: DateOnly | null;
+}
+
+/**
+ * 提案の算出に必要なレシピの情報だけを受け取る。
+ * Recipe（src/types）はこの形を満たすのでそのまま渡せる。
+ */
+export interface SuggestableRecipe {
+  id: UUID;
+  name: string;
+  ingredients: RecipeIngredient[];
+}
+
+/** レシピ1件分の提案（F6-1〜F6-3） */
+export interface RecipeSuggestion {
+  recipeId: UUID;
+  recipeName: string;
+  matches: IngredientMatch[];
+  /** state === 'missing' の件数。並び順の第1キー（F6-2） */
+  missingCount: number;
+  /** state === 'unknown' の件数。並び順の第2キー */
+  unknownCount: number;
+  /** 判定対象の材料数（常備食材を除く）。画面の「食材 3/4」の分母 */
+  requiredCount: number;
+  /** 充足した材料数。上記の分子 */
+  satisfiedCount: number;
 }

@@ -7,8 +7,13 @@
  */
 import { fromBaseUnit, toBaseUnit } from "../unit/convert";
 import { dimensionOf } from "../unit/units";
-import type { RecipeIngredient, UUID } from "../../types";
+import type { DateOnly, RecipeIngredient, UUID } from "../../types";
 import type { IngredientMatch, MatchableIngredient, StockLot, StockTotals } from "./types";
+
+/** 有効な在庫かどうか。数量が0より大きく、期限が null か今日以降（F5-5） */
+function isActive(lot: StockLot, today: DateOnly): boolean {
+  return lot.quantity > 0 && (lot.expiresAt === null || lot.expiresAt >= today);
+}
 
 /**
  * 手順1・手順2。有効な在庫だけを食材ごと・次元ごとに合計する。
@@ -20,8 +25,7 @@ export function aggregateStock(lots: StockLot[], today: string): StockTotals {
   const totals: StockTotals = new Map();
 
   for (const lot of lots) {
-    if (lot.quantity <= 0) continue;
-    if (lot.expiresAt !== null && lot.expiresAt < today) continue;
+    if (!isActive(lot, today)) continue;
 
     const byDimension = totals.get(lot.ingredientId) ?? new Map();
     const dimension = dimensionOf(lot.unit);
@@ -33,6 +37,29 @@ export function aggregateStock(lots: StockLot[], today: string): StockTotals {
   }
 
   return totals;
+}
+
+/**
+ * 食材ごとに、有効な在庫のうち最も近い賞味期限を返す。
+ *
+ * 提案の並び順の第3キー（期限の近い在庫を使う案を優先 / system.md 5.2 手順5）に使う。
+ * 期限なしの在庫しか持たない食材は現れない。集計とは別の関数にしたのは、
+ * aggregateStock を呼んでいる R-2（src/repositories/recipes.ts）に不要な値を返さないため。
+ */
+export function earliestExpiryByIngredient(lots: StockLot[], today: DateOnly): Map<UUID, DateOnly> {
+  const earliest = new Map<UUID, DateOnly>();
+
+  for (const lot of lots) {
+    if (!isActive(lot, today) || lot.expiresAt === null) continue;
+
+    const current = earliest.get(lot.ingredientId);
+    // DateOnly は YYYY-MM-DD なので、文字列の比較がそのまま日付の前後になる
+    if (current === undefined || lot.expiresAt < current) {
+      earliest.set(lot.ingredientId, lot.expiresAt);
+    }
+  }
+
+  return earliest;
 }
 
 /**

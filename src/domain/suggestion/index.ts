@@ -1,14 +1,16 @@
 /**
- * 在庫との突き合わせの公開インターフェース。
+ * 在庫との突き合わせと提案の公開インターフェース。
  *
- * 提案アルゴリズム本体（並べ替えを含む suggest）は #29 で足す。
- * R-2 の在庫表示はここで公開する判定部分だけを使う。
+ * S-1 のレシピ提案は suggest を、R-2 の在庫表示は判定部分だけを使う。
  */
-export { aggregateStock, matchIngredients } from "./match";
+export { aggregateStock, earliestExpiryByIngredient, matchIngredients } from "./match";
+export { suggest } from "./suggest";
 export type {
   IngredientMatch,
   MatchableIngredient,
   MatchState,
+  RecipeSuggestion,
   StockLot,
   StockTotals,
+  SuggestableRecipe,
 } from "./types";
