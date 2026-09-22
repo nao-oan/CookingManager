@@ -23,6 +23,7 @@
 | [システム設計書](docs/design/system.md) | アーキテクチャ、データフロー、API仕様、提案アルゴリズム |
 | [DB設計書](docs/design/database.md) | ER図、テーブル定義、インデックス、RLSポリシー |
 | [ファイル設計書](docs/design/structure.md) | ディレクトリ構成、モジュールの責務、命名規則 |
+| [CI/CD とテスト](docs/design/ci-cd.md) | 開発から本番までの流れ、CIのジョブ構成、テストの内訳 |
 
 ## 開発環境の構築
 
