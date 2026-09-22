@@ -116,6 +116,8 @@ CI に必要なシークレット（GitHub Actions）:
 | `E2E_SUPABASE_URL` / `E2E_SUPABASE_ANON_KEY` | 開発用 Supabase プロジェクト |
 | `E2E_DATABASE_URL` | 同プロジェクトへの接続文字列（データ準備と後片付けに使う） |
 
+`E2E_DATABASE_URL` には **Connection Pooler（Supavisor）の接続文字列**を入れる。`db.<ref>.supabase.co` の直接接続は IPv6 でしか名前解決できず、GitHub Actions のランナーからは `ENETUNREACH` で届かない。ホストは `aws-0-<region>.pooler.supabase.com`、ユーザー名は `postgres.<ref>` の形になる。
+
 ## デプロイ
 
 本番: https://cooking-manager-two.vercel.app
