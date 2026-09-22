@@ -48,3 +48,12 @@ export function toFieldErrors(
   }
   return fields;
 }
+
+/**
+ * リポジトリの書き込み結果。
+ *
+ * 表示する文言は Server Action が決めるため、理由だけを返す
+ * （docs/design/structure.md 3章）。
+ */
+export type WriteFailure = "CONFLICT" | "NOT_FOUND" | "IN_USE";
+export type WriteResult<T> = { ok: true; data: T } | { ok: false; reason: WriteFailure };

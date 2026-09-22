@@ -6,14 +6,12 @@
  * 入力検証とエラーメッセージの生成は行わない（docs/design/structure.md 3章）。
  */
 import "server-only";
-import { and, asc, count, eq, ilike } from "drizzle-orm";
+import { and, asc, count, eq, ilike, inArray } from "drizzle-orm";
 import { db } from "@/db/client";
 import { ingredients, inventoryItems, recipeIngredients, recipes } from "@/db/schema";
+import type { WriteResult } from "@/lib/result";
+import { escapeLike, isPgErrorCode } from "@/lib/sql";
 import type { Ingredient, IngredientInput, IngredientUsage, UUID } from "@/types";
-
-/** 書き込みの結果。表示する文言は Server Action が決める */
-export type WriteFailure = "CONFLICT" | "NOT_FOUND" | "IN_USE";
-export type WriteResult<T> = { ok: true; data: T } | { ok: false; reason: WriteFailure };
 
 /** 一意制約違反（ingredients_owner_name_key）。同名食材の重複（F2-3） */
 const UNIQUE_VIOLATION = "23505";
@@ -28,17 +26,6 @@ const COLUMNS = {
   isStaple: ingredients.isStaple,
   createdAt: ingredients.createdAt,
 };
-
-/** ILIKE のワイルドカードを打ち消す。利用者の入力に含まれる % と _ は文字として扱う */
-function escapeLike(value: string): string {
-  return value.replace(/[\%_]/g, "\$&");
-}
-
-function pgErrorCode(error: unknown): string | undefined {
-  return typeof error === "object" && error !== null && "code" in error
-    ? String((error as { code: unknown }).code)
-    : undefined;
-}
 
 /** C-2 食材一覧。名称の部分一致と常備食材での絞り込みに対応する */
 export async function listIngredients(
@@ -84,6 +71,19 @@ export async function findIngredientById(ownerId: UUID, id: UUID): Promise<Ingre
     .limit(1);
 
   return row ?? null;
+}
+
+/**
+ * 指定した ID のうち、自分が持っている食材だけを返す。
+ * レシピ材料の保存前に、他オーナーの食材を混ぜられていないか確かめる（F1-2）。
+ */
+export async function findIngredientsByIds(ownerId: UUID, ids: UUID[]): Promise<Ingredient[]> {
+  if (ids.length === 0) return [];
+
+  return db
+    .select(COLUMNS)
+    .from(ingredients)
+    .where(and(eq(ingredients.ownerId, ownerId), inArray(ingredients.id, ids)));
 }
 
 /** 同名食材。重複作成を未然に防ぐため候補として提示する（F2-3） */
@@ -135,7 +135,7 @@ export async function insertIngredient(
 
     return { ok: true, data: row };
   } catch (error) {
-    if (pgErrorCode(error) === UNIQUE_VIOLATION) return { ok: false, reason: "CONFLICT" };
+    if (isPgErrorCode(error, UNIQUE_VIOLATION)) return { ok: false, reason: "CONFLICT" };
     throw error;
   }
 }
@@ -154,7 +154,7 @@ export async function updateIngredient(
 
     return row ? { ok: true, data: row } : { ok: false, reason: "NOT_FOUND" };
   } catch (error) {
-    if (pgErrorCode(error) === UNIQUE_VIOLATION) return { ok: false, reason: "CONFLICT" };
+    if (isPgErrorCode(error, UNIQUE_VIOLATION)) return { ok: false, reason: "CONFLICT" };
     throw error;
   }
 }
@@ -171,7 +171,7 @@ export async function deleteIngredient(ownerId: UUID, id: UUID): Promise<WriteRe
 
     return { ok: true, data: null };
   } catch (error) {
-    if (pgErrorCode(error) === FOREIGN_KEY_VIOLATION) return { ok: false, reason: "IN_USE" };
+    if (isPgErrorCode(error, FOREIGN_KEY_VIOLATION)) return { ok: false, reason: "IN_USE" };
     throw error;
   }
 }
