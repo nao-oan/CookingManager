@@ -70,6 +70,7 @@ npm run db:migrate
 | `npm run dev` | 開発サーバーを起動する |
 | `npm run build` | 本番ビルドを作る |
 | `npm test` | 単体テストを実行する（Vitest） |
+| `npm run test:e2e` | E2E を実行する（Playwright。ビルドから通しで行う） |
 | `npm run lint` | ESLint を実行する |
 | `npm run typecheck` | 型チェックを実行する |
 | `npm run format` | Prettier で整形する（`docs/` は対象外） |
@@ -87,7 +88,35 @@ npm run db:migrate
 
 - 初回はセッション開始時にサーバーの利用可否を尋ねられる
 - インストール済みの Chrome を使うため、ブラウザの追加ダウンロードは不要
-- CI で回す E2E テスト（Playwright のテストフレームワーク）とは別物。そちらは #33 で導入する
+- CI で回す E2E テスト（下記）とは別物
+
+### E2E テスト
+
+サイトマップ4章の主要導線5本を Playwright で通す。CI では単体テストとビルドが通ってから実行する。
+
+```bash
+npm run test:e2e        # ビルド → サーバー起動 → 5本を直列で実行
+npm run test:e2e:ui     # 画面を見ながら実行する
+```
+
+| 項目 | 内容 |
+|---|---|
+| 対象 | 開発用 Supabase プロジェクト。本番には接続しない |
+| アカウント | テスト用の1アカウント（`E2E_EMAIL` / `E2E_PASSWORD`） |
+| データ | 実行前後にそのアカウントのデータを空にする。他のユーザーの行には触れない |
+| 並列 | しない。1アカウントを共有するため `workers: 1` |
+
+**ビルドから通しで実行する理由。** `NEXT_PUBLIC_*` はビルド時に値が埋め込まれるため、実行時に環境変数を渡しても接続先は変わらない。ローカルには `.env.production.local`（本番プロジェクト）があり `.env.local` より優先されるので、開発プロジェクトの値を明示的に渡してビルドし直している。
+
+CI に必要なシークレット（GitHub Actions）:
+
+| 名前 | 内容 |
+|---|---|
+| `E2E_EMAIL` / `E2E_PASSWORD` | テスト用アカウント |
+| `E2E_SUPABASE_URL` / `E2E_SUPABASE_ANON_KEY` | 開発用 Supabase プロジェクト |
+| `E2E_DATABASE_URL` | 同プロジェクトへの接続文字列（データ準備と後片付けに使う） |
+
+`E2E_DATABASE_URL` には **Connection Pooler（Supavisor）の接続文字列**を入れる。`db.<ref>.supabase.co` の直接接続は IPv6 でしか名前解決できず、GitHub Actions のランナーからは `ENETUNREACH` で届かない。ホストは `aws-0-<region>.pooler.supabase.com`、ユーザー名は `postgres.<ref>` の形になる。
 
 ## デプロイ
 
