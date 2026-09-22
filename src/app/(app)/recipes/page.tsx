@@ -60,8 +60,7 @@ export default async function RecipesPage({
           {found.map((recipe) => (
             <RecipeCard
               key={recipe.id}
-              // R-2 詳細は #27 で実装する。それまでは編集画面へ送る
-              href={`/recipes/${recipe.id}/edit`}
+              href={`/recipes/${recipe.id}`}
               name={recipe.name}
               ingredientCount={recipe.ingredientCount}
               ingredientNames={recipe.ingredientNames}

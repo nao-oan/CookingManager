@@ -61,11 +61,11 @@ export async function createRecipe(
   const forbidden = await assertOwnIngredients(user.id, parsed.data);
   if (forbidden) return forbidden;
 
-  await insertRecipe(user.id, parsed.data);
+  const id = await insertRecipe(user.id, parsed.data);
 
   revalidatePath(LIST_PATH);
-  // 画面設計では保存後に R-2 へ送る。詳細画面は #27 で実装するため、今は一覧へ戻す
-  redirect(LIST_PATH);
+  // 保存後は詳細へ（画面設計 R-3 の遷移）
+  redirect(`${LIST_PATH}/${id}`);
 }
 
 export async function updateRecipe(
@@ -86,8 +86,9 @@ export async function updateRecipe(
   if (!result.ok) return fail("NOT_FOUND", "レシピが見つかりません");
 
   revalidatePath(LIST_PATH);
+  revalidatePath(`${LIST_PATH}/${id.data}`);
   revalidatePath(`${LIST_PATH}/${id.data}/edit`);
-  redirect(LIST_PATH);
+  redirect(`${LIST_PATH}/${id.data}`);
 }
 
 export async function deleteRecipe(_prev: RecipeState, formData: FormData): Promise<RecipeState> {

@@ -21,7 +21,7 @@ export default async function EditRecipePage({ params }: { params: Promise<{ id:
 
   return (
     <main className="flex flex-col gap-3">
-      <SubBar title="レシピを編集" backHref="/recipes" />
+      <SubBar title="レシピを編集" backHref={`/recipes/${recipe.id}`} />
       <RecipeForm recipe={recipe} />
       <DeleteRecipeForm id={recipe.id} />
     </main>

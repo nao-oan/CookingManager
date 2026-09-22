@@ -66,6 +66,17 @@ export interface RecipeSummary {
   ingredientNames: string[];
 }
 
+/** 在庫（F5-1）。同じ食材を複数ロット持て、期限を個別に管理する */
+export interface InventoryItem {
+  id: UUID;
+  ownerId: UUID;
+  ingredientId: UUID;
+  quantity: number;
+  unit: Unit;
+  /** 任意。null は期限なしで、期限切れ判定の対象外（F5-5） */
+  expiresAt: DateOnly | null;
+}
+
 /** レシピの登録・更新で受け取る値。検証は src/validations/recipe.ts が行う */
 export interface RecipeInput {
   name: string;
