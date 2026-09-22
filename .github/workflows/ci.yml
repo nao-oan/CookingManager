@@ -46,3 +46,56 @@ jobs:
 
       - name: ビルド
         run: npm run build
+
+  e2e:
+    name: E2E（主要導線5本）
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # 単体テストとビルドが通ってから実行する
+    needs: verify
+
+    env:
+      # テスト用アカウントと開発用 Supabase プロジェクト（本番とは別）
+      E2E_EMAIL: ${{ secrets.E2E_EMAIL }}
+      E2E_PASSWORD: ${{ secrets.E2E_PASSWORD }}
+      NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.E2E_SUPABASE_URL }}
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.E2E_SUPABASE_ANON_KEY }}
+      DATABASE_URL: ${{ secrets.E2E_DATABASE_URL }}
+
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v5
+
+      - name: Node.js のセットアップ
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: 依存関係のインストール
+        run: npm ci
+
+      - name: シークレットの確認
+        # 設定されていない場合は原因が分かる形で止める
+        run: |
+          for key in E2E_EMAIL E2E_PASSWORD NEXT_PUBLIC_SUPABASE_URL NEXT_PUBLIC_SUPABASE_ANON_KEY DATABASE_URL; do
+            if [ -z "${!key}" ]; then
+              echo "::error::シークレット $key が設定されていない。README の E2E の節を参照"
+              exit 1
+            fi
+          done
+
+      - name: ブラウザのインストール
+        run: npx playwright install chromium --with-deps
+
+      # ビルドは playwright.config.ts の webServer が行う（NEXT_PUBLIC_* の埋め込みのため）
+      - name: E2E
+        run: npm run test:e2e
+
+      - name: レポートの保存
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
