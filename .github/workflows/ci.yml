@@ -86,7 +86,7 @@ jobs:
           done
 
       - name: ブラウザのインストール
-        run: npx playwright install chromium --with-deps
+        run: npx playwright install chromium webkit --with-deps
 
       # ビルドは playwright.config.ts の webServer が行う（NEXT_PUBLIC_* の埋め込みのため）
       - name: E2E

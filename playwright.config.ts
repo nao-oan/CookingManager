@@ -36,7 +36,12 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
 
-  projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
+  // NFR-16 は Chrome / Safari / Edge の最新2バージョン。Edge は Chromium なので
+  // chromium で、Safari は WebKit で代表させる。実機での確認は別途行う
+  projects: [
+    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
+    { name: "webkit", use: { ...devices["Desktop Safari"] } },
+  ],
 
   webServer: {
     // ビルドから通しで行う。NEXT_PUBLIC_* は**ビルド時に値が埋め込まれる**ため、
