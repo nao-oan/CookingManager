@@ -14,6 +14,9 @@ import { escapeLike } from "@/lib/sql";
 import type { Recipe, RecipeInput, RecipeSummary, UUID } from "@/types";
 import { findInventoryByIngredientIds } from "./inventory";
 
+/** 料理名だけを持つ形。候補の提示と所有の照合に使う */
+type RecipeName = { id: UUID; name: string };
+
 /** R-1 のカードに出すタグの上限。カード幅に収まる数に絞る */
 const TAG_LIMIT = 3;
 
@@ -64,6 +67,38 @@ export async function listRecipes(ownerId: UUID, query = ""): Promise<RecipeSumm
       ingredientNames: names.slice(0, TAG_LIMIT),
     };
   });
+}
+
+/**
+ * GET /api/recipes/search。M-3 の品目選択で入力中に逐次呼ぶ（F4-2）。
+ * 候補に出すのは料理名だけなので、材料は引かない。
+ */
+export async function searchRecipesByName(
+  ownerId: UUID,
+  query: string,
+  limit = 10,
+): Promise<RecipeName[]> {
+  if (!query) return [];
+
+  return db
+    .select({ id: recipes.id, name: recipes.name })
+    .from(recipes)
+    .where(and(eq(recipes.ownerId, ownerId), ilike(recipes.name, `%${escapeLike(query)}%`)))
+    .orderBy(asc(recipes.name))
+    .limit(limit);
+}
+
+/**
+ * 指定した ID のうち自分のレシピだけを返す。
+ * 食事記録に他オーナーのレシピを混ぜられないか確かめるのに使う（F1-2）。
+ */
+export async function findRecipesByIds(ownerId: UUID, ids: UUID[]): Promise<RecipeName[]> {
+  if (ids.length === 0) return [];
+
+  return db
+    .select({ id: recipes.id, name: recipes.name })
+    .from(recipes)
+    .where(and(eq(recipes.ownerId, ownerId), inArray(recipes.id, ids)));
 }
 
 /** R-2・R-4 用。材料と手順を含めて1件取得する */
