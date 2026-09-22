@@ -61,5 +61,8 @@ export const recipeSchema = z.object({
 
 export const recipeIdSchema = z.uuid("レシピが見つかりません");
 
+/** 検索語。空文字は「絞り込みなし」として扱う（GET /api/recipes/search） */
+export const recipeSearchQuerySchema = z.string().trim().max(RECIPE_NAME_MAX).default("");
+
 /** 画面から送られる形。検証前なので数量は文字列でもよい */
 export type RecipeFormInput = z.input<typeof recipeSchema>;

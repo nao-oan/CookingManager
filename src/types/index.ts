@@ -84,3 +84,51 @@ export interface RecipeInput {
   steps: string[];
   note: string | null;
 }
+
+/** 食事区分（F4-1）。値は DB の meal_slot と並び順まで揃える */
+export const MEAL_SLOTS = ["breakfast", "lunch", "dinner", "snack"] as const;
+
+export type MealSlot = (typeof MEAL_SLOTS)[number];
+
+/**
+ * 食事記録の品目（F4-2, F4-3）。
+ *
+ * レシピ参照か自由入力かは recipeId の有無で決まる。表示名は常に持つ
+ * （登録時点の料理名を複写する / docs/design/database.md 4章）。
+ */
+export interface MealItem {
+  id: UUID;
+  /** 自由入力の場合と、参照先のレシピを削除した後は null */
+  recipeId: UUID | null;
+  displayName: string;
+  /** 表示順。1始まり */
+  position: number;
+}
+
+/** 食事記録（F4-1〜F4-3）。1日1区分につき1件で、複数の品目を持つ */
+export interface Meal {
+  id: UUID;
+  ownerId: UUID;
+  date: DateOnly;
+  slot: MealSlot;
+  items: MealItem[];
+  note: string | null;
+}
+
+/** 記録の保存で受け取る品目。position は並び順から決めるので持たない */
+export interface MealItemInput {
+  recipeId: UUID | null;
+  displayName: string;
+}
+
+/** 記録の保存で受け取る値。検証は src/validations/meal.ts が行う */
+export interface MealInput {
+  items: MealItemInput[];
+  note: string | null;
+}
+
+/** M-1 のカレンダー1日分（F4-4）。記録のある区分だけを持つ */
+export interface MealCalendarDay {
+  date: DateOnly;
+  slots: MealSlot[];
+}
