@@ -8,9 +8,11 @@ import "server-only";
 import { and, asc, desc, eq, ilike, inArray } from "drizzle-orm";
 import { db } from "@/db/client";
 import { ingredients, recipeIngredients, recipes, recipeSteps } from "@/db/schema";
+import { aggregateStock, matchIngredients, type IngredientMatch } from "@/domain/suggestion";
 import type { WriteResult } from "@/lib/result";
 import { escapeLike } from "@/lib/sql";
 import type { Recipe, RecipeInput, RecipeSummary, UUID } from "@/types";
+import { findInventoryByIngredientIds } from "./inventory";
 
 /** R-1 のカードに出すタグの上限。カード幅に収まる数に絞る */
 const TAG_LIMIT = 3;
@@ -110,6 +112,39 @@ export async function findRecipeById(ownerId: UUID, id: UUID): Promise<Recipe | 
       isStaple: member.isStaple,
     })),
     steps: steps.map((step) => step.body),
+  };
+}
+
+/**
+ * R-2 用。レシピと、材料ごとの在庫の充足状態を返す（F3-4, F6-4, F6-6）。
+ * 出典: docs/design/system.md 7.3
+ *
+ * 判定は提案アルゴリズムと同じドメイン関数を使う。DB からは行を取るだけで、
+ * 期限切れや単位換算の判断はドメイン層に任せる。
+ */
+export async function getRecipeWithStock(
+  ownerId: UUID,
+  id: UUID,
+  today: string,
+): Promise<(Recipe & { matches: IngredientMatch[] }) | null> {
+  const recipe = await findRecipeById(ownerId, id);
+  if (!recipe) return null;
+
+  const lots = await findInventoryByIngredientIds(
+    ownerId,
+    recipe.ingredients.map((member) => member.ingredientId),
+  );
+
+  const masters = new Map(
+    recipe.ingredients.map((member) => [
+      member.ingredientId,
+      { name: member.name, isStaple: member.isStaple },
+    ]),
+  );
+
+  return {
+    ...recipe,
+    matches: matchIngredients(recipe.ingredients, masters, aggregateStock(lots, today)),
   };
 }
 
