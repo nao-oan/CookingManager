@@ -6,6 +6,9 @@ import { requireUser } from "@/lib/auth";
 import { currentMealSlot, todayInTokyo } from "@/lib/date";
 import { getSuggestions } from "@/repositories/suggestions";
 
+/** S-1 に一度に出す提案の件数（画面設計 8章4） */
+const SUGGESTION_LIMIT = 10;
+
 /**
  * S-1 レシピ提案 `/suggestions`
  * 画面定義: docs/design/screen-design.md 5章、モックアップ mockups/html/s-1.html
@@ -16,10 +19,11 @@ import { getSuggestions } from "@/repositories/suggestions";
 export default async function SuggestionsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ use?: string | string[] }>;
+  searchParams: Promise<{ use?: string | string[]; all?: string }>;
 }) {
-  const { use } = await searchParams;
+  const { use, all } = await searchParams;
   const selected = typeof use === "string" ? [use] : (use ?? []);
+  const showAll = all === "1";
 
   const user = await requireUser();
   const now = new Date();
@@ -29,6 +33,10 @@ export default async function SuggestionsPage({
     today,
     selected,
   );
+
+  // 既定は上位 SUGGESTION_LIMIT 件だけ出し、残りは「もっと見る」で開く（画面設計 8章4）
+  const visible = showAll ? suggestions : suggestions.slice(0, SUGGESTION_LIMIT);
+  const rest = suggestions.length - visible.length;
 
   return (
     <main className="flex flex-col gap-4">
@@ -127,13 +135,21 @@ export default async function SuggestionsPage({
           />
         ) : (
           <div className="flex flex-col gap-2">
-            {suggestions.map((suggestion, index) => (
+            {visible.map((suggestion, index) => (
               <SuggestionCard
                 key={suggestion.recipeId}
                 suggestion={suggestion}
                 featured={index === 0 && suggestion.missingCount === 0}
               />
             ))}
+            {rest > 0 && (
+              <Link
+                href={moreHref(selected)}
+                className="grid min-h-[44px] place-items-center rounded-lg bg-mint font-bold text-green-dark"
+              >
+                もっと見る（残り{rest}件）
+              </Link>
+            )}
           </div>
         )}
 
@@ -156,6 +172,14 @@ export default async function SuggestionsPage({
       </section>
     </main>
   );
+}
+
+/** 「もっと見る」の遷移先。絞り込みは保ったまま全件表示に切り替える */
+function moreHref(selected: string[]): string {
+  const params = new URLSearchParams();
+  for (const id of selected) params.append("use", id);
+  params.set("all", "1");
+  return `/suggestions?${params.toString()}`;
 }
 
 /** 時間帯のあいさつ。区分は lib/date の食事区分に合わせる */

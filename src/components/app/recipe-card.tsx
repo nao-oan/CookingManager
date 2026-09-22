@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { recipeThumbnail } from "@/domain/thumbnail/thumbnail";
 import { IngredientTag } from "./ingredient-tag";
 
 /**
@@ -21,7 +22,7 @@ export function RecipeCard({
   return (
     <Link href={href} className="flex flex-col gap-1.5 rounded-md bg-white p-2 shadow-sm">
       <span className="grid h-[88px] place-items-center rounded-sm bg-mint text-3xl" aria-hidden>
-        🍲
+        {recipeThumbnail(name)}
       </span>
       <span className="min-h-[38px] font-heading text-sm leading-snug font-bold">{name}</span>
       <span className="text-[11px] text-ink-mid">材料 {ingredientCount}件</span>

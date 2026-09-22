@@ -46,10 +46,10 @@ async function hasHorizontalScroll(page: Page): Promise<boolean> {
   );
 }
 
-test("NFR-8 全17画面が375px幅で横スクロールしない", async ({ page, browser }) => {
+test("NFR-8 全19画面が375px幅で横スクロールしない", async ({ page, browser }) => {
   await page.setViewportSize({ width: 375, height: 812 });
 
-  // 要ログインの14画面
+  // 要ログインの15画面
   const authed = [
     ["S-1", "/suggestions"],
     ["R-1", "/recipes"],
@@ -65,6 +65,8 @@ test("NFR-8 全17画面が375px幅で横スクロールしない", async ({ page
     ["C-1", "/settings"],
     ["C-2", "/settings/ingredients"],
     ["C-3", `/settings/ingredients/${ingredientId}/edit`],
+    // A-4 は通常のセッションでも開ける（復旧セッションは A-4 の保存時にだけ要る）
+    ["A-4", "/reset-password/new"],
   ] as const;
 
   for (const [name, path] of authed) {
@@ -73,7 +75,7 @@ test("NFR-8 全17画面が375px幅で横スクロールしない", async ({ page
     expect(await hasHorizontalScroll(page), `${name} ${path} で横スクロールが出ている`).toBe(false);
   }
 
-  // 未ログインの3画面は別のコンテキストで開く
+  // 未ログインの4画面は別のコンテキストで開く
   const guest = await browser.newContext({ viewport: { width: 375, height: 812 } });
   const guestPage = await guest.newPage();
 
@@ -81,6 +83,7 @@ test("NFR-8 全17画面が375px幅で横スクロールしない", async ({ page
     ["L-1", "/"],
     ["A-1", "/login"],
     ["A-2", "/signup"],
+    ["A-3", "/reset-password"],
   ] as const) {
     await guestPage.goto(path);
     await expect(guestPage.locator("main")).toBeVisible();

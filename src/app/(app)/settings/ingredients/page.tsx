@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { EmptyState } from "@/components/app/empty-state";
 import { SubBar } from "@/components/app/sub-bar";
+import { ingredientThumbnail } from "@/domain/thumbnail/thumbnail";
 import { requireUser } from "@/lib/auth";
 import { listIngredients } from "@/repositories/ingredients";
 import { IngredientCreateForm } from "./ingredient-create-form";
@@ -68,6 +69,12 @@ export default async function IngredientsPage({
               href={`/settings/ingredients/${ingredient.id}/edit`}
               className="flex items-center gap-2 rounded-md bg-white p-3 shadow-sm"
             >
+              <span
+                aria-hidden
+                className="grid size-11 shrink-0 place-items-center rounded-sm bg-mint text-xl"
+              >
+                {ingredientThumbnail(ingredient.name)}
+              </span>
               <span className="flex-1">
                 <span className="block font-heading font-bold">{ingredient.name}</span>
                 <span className="block text-xs text-ink-mid">

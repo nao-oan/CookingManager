@@ -2,6 +2,7 @@ import Link from "next/link";
 import { EmptyState } from "@/components/app/empty-state";
 import { ExpiryBadge } from "@/components/app/expiry-badge";
 import { describeExpiry } from "@/domain/expiry/expiry";
+import { ingredientThumbnail } from "@/domain/thumbnail/thumbnail";
 import { requireUser } from "@/lib/auth";
 import { todayInTokyo } from "@/lib/date";
 import { listInventory } from "@/repositories/inventory";
@@ -67,7 +68,7 @@ export default async function PantryPage({
                       expired ? "bg-white" : "bg-mint"
                     }`}
                   >
-                    🥬
+                    {ingredientThumbnail(item.ingredientName)}
                   </span>
                   <span className="flex flex-col gap-1.5">
                     <span

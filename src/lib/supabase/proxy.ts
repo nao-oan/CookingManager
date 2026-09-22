@@ -5,8 +5,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-/** 未ログインでも開ける経路（サイトマップ2章: L-1, A-1, A-2） */
-const PUBLIC_PATHS = ["/", "/login", "/signup"];
+/** 未ログインでも開ける経路（サイトマップ2章: L-1, A-1, A-2 とパスワード再設定） */
+const PUBLIC_PATHS = ["/", "/login", "/signup", "/reset-password", "/auth/callback"];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
