@@ -33,3 +33,18 @@ export function fail(
 ): ActionResult<never> {
   return { ok: false, error: { code, message, ...(fields ? { fields } : {}) } };
 }
+
+/**
+ * Zod のエラーをフィールド単位の辞書に変換する。
+ * 同じフィールドに複数の指摘があるときは最初の1件だけを見せる。
+ */
+export function toFieldErrors(
+  issues: readonly { path: PropertyKey[]; message: string }[],
+): Record<string, string> {
+  const fields: Record<string, string> = {};
+  for (const issue of issues) {
+    const key = String(issue.path[0] ?? "");
+    if (key && !fields[key]) fields[key] = issue.message;
+  }
+  return fields;
+}

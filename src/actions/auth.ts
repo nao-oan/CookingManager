@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { signInSchema, signUpSchema } from "@/validations/auth";
-import { fail, type ActionResult } from "@/lib/result";
+import { fail, toFieldErrors, type ActionResult } from "@/lib/result";
 
 /**
  * 認証の Server Action（F1-1, F1-3）。
@@ -15,16 +15,6 @@ import { fail, type ActionResult } from "@/lib/result";
 
 type AuthState = ActionResult<never> | null;
 
-/** Zod のエラーをフィールド単位の辞書に変換する */
-function toFields(issues: { path: PropertyKey[]; message: string }[]): Record<string, string> {
-  const fields: Record<string, string> = {};
-  for (const issue of issues) {
-    const key = String(issue.path[0] ?? "");
-    if (key && !fields[key]) fields[key] = issue.message;
-  }
-  return fields;
-}
-
 export async function signIn(_prev: AuthState, formData: FormData): Promise<AuthState> {
   const parsed = signInSchema.safeParse({
     email: formData.get("email"),
@@ -32,7 +22,11 @@ export async function signIn(_prev: AuthState, formData: FormData): Promise<Auth
   });
 
   if (!parsed.success) {
-    return fail("VALIDATION_ERROR", "入力内容を確認してください", toFields(parsed.error.issues));
+    return fail(
+      "VALIDATION_ERROR",
+      "入力内容を確認してください",
+      toFieldErrors(parsed.error.issues),
+    );
   }
 
   const supabase = await createClient();
@@ -54,7 +48,11 @@ export async function signUp(_prev: AuthState, formData: FormData): Promise<Auth
   });
 
   if (!parsed.success) {
-    return fail("VALIDATION_ERROR", "入力内容を確認してください", toFields(parsed.error.issues));
+    return fail(
+      "VALIDATION_ERROR",
+      "入力内容を確認してください",
+      toFieldErrors(parsed.error.issues),
+    );
   }
 
   const supabase = await createClient();
