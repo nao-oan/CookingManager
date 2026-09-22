@@ -1,11 +1,21 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/supabase/server";
+
 /**
  * L-1 ランディング `/`
  *
- * 雛形段階の最小実装。掲載内容はサイトマップ2章と docs/design/mockups/html/l-1.html
- * を参照し、フェーズ2以降で作り込む。
+ * 未ログインの訪問者に機能を説明し、登録へ導く。
+ * ログイン済みでアクセスした場合は S-1 へ送る（画面設計書 5章 L-1 の状態）。
  */
-export default function LandingPage() {
+export default async function LandingPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) redirect("/suggestions");
+
   return (
     <main className="mx-auto flex min-h-dvh w-full max-w-[390px] flex-col gap-8 px-4 py-10">
       <header>
