@@ -77,6 +77,17 @@ export interface InventoryItem {
   expiresAt: DateOnly | null;
 }
 
+/** 在庫の登録・更新で受け取る値。検証は src/validations/inventory.ts が行う */
+export type InventoryInput = Pick<
+  InventoryItem,
+  "ingredientId" | "quantity" | "unit" | "expiresAt"
+>;
+
+/** P-1・P-3 の表示用に食材名を添えた在庫 */
+export interface InventoryListItem extends InventoryItem {
+  ingredientName: string;
+}
+
 /** レシピの登録・更新で受け取る値。検証は src/validations/recipe.ts が行う */
 export interface RecipeInput {
   name: string;
